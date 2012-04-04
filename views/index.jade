@@ -1,2 +1,23 @@
-h1= title
-p Welcome to #{title}
+include _includes/header
+
+div.container
+	div.hero-unit
+		h1=title
+		p Welcome to #{title}
+
+	div.row
+		div.span12
+			h2 Requirements (built with)
+			p
+				ul
+					li mongodb
+					li nodejs
+					li twitter-bootstrap
+					li fedora-commons
+					li mocha (for testing/unit tests)
+			h2 Target users
+			p Users who wish to develop applications using the DRI API
+
+			h2 Purpose of this screen
+			p Should show help, documentation here on this screen.
+	include _includes/footer

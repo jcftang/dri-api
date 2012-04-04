@@ -24,7 +24,7 @@ describe('APIv2 tests', function() {
 				uri : socket + '/'
 			}, function(err, resp, body) {
 				assert.isNull(err);
-				assert.include(body, 'Express');
+				assert.include(body, '<title>DRI API</title>');
 				done();
 			});
 		});
