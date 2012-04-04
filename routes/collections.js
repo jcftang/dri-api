@@ -7,7 +7,6 @@ var fedora = require("fedora");
 
 exports.index = function(req, res) {
 	dri.getAllRecordsByType("collection", function(arr) {
-		console.log(arr);
 		res.send(arr);
 	});
 }
