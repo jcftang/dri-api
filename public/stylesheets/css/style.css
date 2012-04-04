@@ -1,0 +1,87 @@
+*{
+	margin:0;
+	padding:0;
+}
+p{
+	font-size: 1em;
+}
+#properties{
+	background-color: #F9F9F9;
+	border-radius:4px;
+	padding:10px;
+	float:left;
+}
+#properties .selectData{
+	display:none;
+}
+
+#container{
+	margin-top:20px;
+}
+#step2 input, #step2 form a,#step3 input, #step3 form a,#step4 input, #step4 form a{
+	float:left;
+	margin-right: 5px;
+}
+#properties button{
+	width: 95%;
+	margin-bottom: 5px;
+}
+
+#properties .btn{
+	text-align: left;
+}
+div#step1Info a.btn,div#step2Info a.btn,div#step3Info a.btn,div#step4Info a.btn{
+	width: 93%;
+	margin-bottom: 5px;
+}
+.accordion-heading-focus{
+  padding:5px;
+  background-color: #3875d7;  
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(20%, #3875d7), color-stop(90%, #2a62bc));
+  background-image: -webkit-linear-gradient(top, #3875d7 20%, #2a62bc 90%);
+  background-image: -moz-linear-gradient(top, #3875d7 20%, #2a62bc 90%);
+  background-image: -o-linear-gradient(top, #3875d7 20%, #2a62bc 90%);
+  background-image: -ms-linear-gradient(top, #3875d7 20%, #2a62bc 90%);
+  background-image: linear-gradient(top, #3875d7 20%, #2a62bc 90%);
+  color: #fff;
+}
+
+.accordion-heading-focus a{
+	color: #FFFFFF;
+}
+
+.breaddisabled,.breaddisabled:hover{
+	color: #999999;
+	text-decoration:none;
+   cursor: default;
+}
+.pager{
+	float:right;
+}
+
+.dummy{
+	clear:both;
+}
+
+.type{
+	display: none;
+}
+
+
+li.selected{
+	background-color: #3B773B!important;
+	color:#FFF;
+}
+.form-actions{
+	padding-left:5px !important;
+}
+
+.items ul li{
+	list-style: none;
+	padding-left: 5px;
+	margin-left: 0;
+}
+.items ul{
+	margin-left: 0;
+}
+
