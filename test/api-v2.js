@@ -11,7 +11,7 @@ appConfig.configure(app);
 appRoutes.createRoutes(app);
 app.listen(port);
 
-console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
+console.log("Express test server listening on port %d in %s mode", app.address().port, app.settings.env);
 
 describe('APIv2 tests', function() {
 
@@ -84,7 +84,6 @@ describe('APIv2 tests', function() {
 			});
 		});
 	});
-	
 	describe('PUT /dev/collections/:id/series/:id/items/:id', function() {
 		it("should respond with the id of the updated item", function(done) {
 			request({
@@ -154,8 +153,23 @@ describe('APIv2 tests', function() {
 			}, function(err, resp, body) {
 				assert.isNull(err);
 				assert.include(body, collectionId);
-				//assert.include(body, "Autobot collectionUpdate");
+				assert.include(body, "Autobot collectionUpdate");
 				assert.include(body, "update");
+				done();
+			});
+		});
+	});
+	describe('GET /dev/collections/:id', function() {
+		it("should respond with the array containing the data of the specified collection", function(done) {
+			request({
+				method : 'GET',
+				uri : socket + '/dev/collections/' + collectionId
+			}, function(err, resp, body) {
+				var json = JSON.parse(body);
+				assert.isNull(err);
+				assert.isDefined(body);
+				assert.equal(json.Title, "Autobot collectionUpdate");
+				assert.equal(json.update, "update");
 				done();
 			});
 		});
@@ -174,6 +188,21 @@ describe('APIv2 tests', function() {
 			});
 		});
 	});
+	describe('GET /dev/collections/:id/series/:id', function() {
+		it("should respond with the array containing the data of the specified series", function(done) {
+			request({
+				method : 'GET',
+				uri : socket + '/dev/collections/' + collectionId + '/series/' + seriesId
+			}, function(err, resp, body) {
+				var json = JSON.parse(body);
+				assert.isNull(err);
+				assert.isDefined(body);
+				assert.equal(json.Title, "Autobot seriesUpdate");
+				assert.equal(json.update, "update");
+				done();
+			});
+		});
+	});
 	describe('GET /dev/collections/:id/series/:id/items', function() {
 		it("should respond with an array of all the items corresponding to the given ids", function(done) {
 			request({
@@ -188,7 +217,21 @@ describe('APIv2 tests', function() {
 			});
 		});
 	});
-	
+	describe('GET /dev/collections/:id/series/:id/items/:id', function() {
+		it("should respond with the array containing the data of the specified item", function(done) {
+			request({
+				method : 'GET',
+				uri : socket + '/dev/collections/' + collectionId + '/series/' + seriesId + '/items/' + itemId
+			}, function(err, resp, body) {
+				var json = JSON.parse(body);
+				assert.isNull(err);
+				assert.isDefined(body);
+				assert.equal(json.Title, "Autobot titleUpdate");
+				assert.equal(json.update, "update");
+				done();
+			});
+		});
+	});
 	describe('DELETE /dev/collections/:id/series/:id/items/:id', function() {
 		it("should respond with the id of the deleted item", function(done) {
 			request({

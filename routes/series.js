@@ -11,6 +11,15 @@ exports.index = function(req, res) {
 		res.send(arr);
 	});
 }
+
+exports.show = function(req, res) {
+	var id = req.params.series;
+	dri.getItem(id, function(arr) {
+		res.send(arr);
+	}, function(err){
+		res.send(err);
+	});
+}
 exports.create = function(req, res) {
 	var data = req.body;
 	dri.createSeries(data, function(arr) {
