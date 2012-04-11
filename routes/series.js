@@ -6,15 +6,16 @@ var dri = require("dri");
 var fedora = require("fedora");
 
 exports.index = function(req, res) {
-	var collectionID = req.params.collection;
-	dri.getItems(collectionID, function(arr) {
+	dri.getAllSeries(function(arr) {
 		res.send(arr);
+	}, function(err){
+		res.send(err);
 	});
 }
 
 exports.show = function(req, res) {
 	var id = req.params.series;
-	dri.getItem(id, function(arr) {
+	dri.getSeries(id, function(arr) {
 		res.send(arr);
 	}, function(err){
 		res.send(err);
@@ -30,7 +31,7 @@ exports.create = function(req, res) {
 }
 exports.destroy = function(req, res) {
 	var id = req.params.series;
-	dri.removeItem(id, function(arr) {
+	dri.removeSeries(id, function(arr) {
 		res.send(arr);
 	}, function(err){
 		res.send(err);

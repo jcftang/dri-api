@@ -7,41 +7,11 @@ var fedora = require("fedora");
 var converter = require("../data-converters");
 
 exports.index = function(req, res) {
-	switch (req.format) {
-		case 'json':
-			var seriesID = req.params.series;
-			dri.getItems(seriesID, function(arr) {
-				res.send(arr);
-			});
-			break;
-		case 'xml':
-			var seriesID = req.params.series;
-			dri.getItems(seriesID, function(arr) {
-				res.send("<xml>" + arr + "</xml>");
-			});
-			break;
-		case 'mods':
-			var seriesID = req.params.series;
-			dri.getItems(seriesID, function(arr) {
-				res.send("<mods>" + arr + "</mods>", {
-					'Content-Type' : 'text/xml'
-				});
-			});
-			break;
-		case 'dc':
-			var seriesID = req.params.series;
-			dri.getItems(seriesID, function(arr) {
-				res.send("<dc>" + arr + "</dc>", {
-					'Content-Type' : 'text/xml'
-				});
-			});
-			break;
-		default:
-			var seriesID = req.params.series;
-			dri.getItems(seriesID, function(arr) {
-				res.send(arr);
-			});
-	}
+	dri.getAllItems(function(arr) {
+		res.send(arr);
+	}, function(err){
+		res.send(err);
+	});
 }
 
 exports.show = function(req, res) {
