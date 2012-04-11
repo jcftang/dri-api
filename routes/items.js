@@ -8,7 +8,7 @@ var converter = require("../data-converters");
 
 exports.index = function(req, res) {
 	dri.getAllItems(function(arr) {
-		res.send(arr);
+		res.json(arr);
 	}, function(err){
 		res.send(err);
 	});

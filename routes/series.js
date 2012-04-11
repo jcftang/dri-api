@@ -7,7 +7,7 @@ var fedora = require("fedora");
 
 exports.index = function(req, res) {
 	dri.getAllSeries(function(arr) {
-		res.send(arr);
+		res.json(arr);
 	}, function(err){
 		res.send(err);
 	});
@@ -16,7 +16,7 @@ exports.index = function(req, res) {
 exports.show = function(req, res) {
 	var id = req.params.series;
 	dri.getSeries(id, function(arr) {
-		res.send(arr);
+		res.json(arr);
 	}, function(err){
 		res.send(err);
 	});

@@ -7,7 +7,7 @@ var fedora = require("fedora");
 
 exports.index = function(req, res) {
 	dri.getAllCollections(function(arr) {
-		res.send(arr);
+		res.json(arr);
 	}, function(err){
 		res.send(err);
 	});
