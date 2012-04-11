@@ -9,15 +9,15 @@ exports.index = function(req, res) {
 	dri.getAllCollections(function(arr) {
 		res.json(arr);
 	}, function(err){
-		res.send(err);
+		res.json(err);
 	});
 }
 exports.show = function(req, res) {
 	var id = req.params.collection;
 	dri.getCollection(id, function(arr) {
-		res.send(arr);
+		res.json(arr);
 	}, function(err){
-		res.send(err);
+		res.json(err);
 	});
 }
 exports.create = function(req, res) {

@@ -9,7 +9,7 @@ exports.index = function(req, res) {
 	dri.getAllSeries(function(arr) {
 		res.json(arr);
 	}, function(err){
-		res.send(err);
+		res.json(err);
 	});
 }
 
@@ -18,7 +18,7 @@ exports.show = function(req, res) {
 	dri.getSeries(id, function(arr) {
 		res.json(arr);
 	}, function(err){
-		res.send(err);
+		res.json(err);
 	});
 }
 exports.create = function(req, res) {
