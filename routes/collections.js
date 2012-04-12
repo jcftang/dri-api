@@ -23,7 +23,6 @@ exports.show = function(req, res) {
 exports.create = function(req, res) {
 	res.setHeader('Access-Control-Allow-Origin','*');
 	var data = req.body;
-	console.log(data)
 	dri.createCollection(data, function(arr) {
 		res.send(arr);
 	}, function(err){
@@ -39,10 +38,12 @@ exports.destroy = function(req, res) {
 	});
 }
 exports.update = function(req, res) {
+	res.setHeader('Access-Control-Allow-Origin','*');
 	var data = req.body;
-	dri.updateItem(data,null, function(arr) {
-		res.send(arr);
-	}, function(err){
+	var id = req.params.collection;
+	dri.updateItem(id,data, function(numAffected) {
+		res.json(numAffected);
+	}, function(err) {
 		res.send(err);
 	});
 }

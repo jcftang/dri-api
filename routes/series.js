@@ -6,7 +6,8 @@ var dri = require("dri");
 var fedora = require("fedora");
 
 exports.index = function(req, res) {
-	dri.getAllSeries(function(arr) {
+	var id = req.params.collection;
+	dri.getChildren(id,function(arr) {
 		res.json(arr);
 	}, function(err) {
 		res.json(err);
@@ -39,9 +40,11 @@ exports.destroy = function(req, res) {
 	});
 }
 exports.update = function(req, res) {
+	res.setHeader('Access-Control-Allow-Origin','*');
 	var data = req.body;
-	dri.updateItem(data, null, function(arr) {
-		res.send(arr);
+	var id = req.params.series;
+	dri.updateItem(id,data, function(numAffected) {
+		res.json(numAffected);
 	}, function(err) {
 		res.send(err);
 	});

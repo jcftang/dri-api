@@ -7,7 +7,8 @@ var fedora = require("fedora");
 var converter = require("../data-converters");
 
 exports.index = function(req, res) {
-	dri.getAllItems(function(arr) {
+	var id = req.params.series;
+	dri.getChildren(id,function(arr) {
 		res.json(arr);
 	}, function(err) {
 		res.json(err);
@@ -23,7 +24,10 @@ exports.show = function(req, res) {
 	});
 }
 exports.create = function(req, res) {
+	res.setHeader('Access-Control-Allow-Origin', '*');
 	var data = req.body;
+	var seriesId = req.params.series
+
 	dri.createItem(data, function(arr) {
 		res.send(arr);
 	}, function(err) {
@@ -40,9 +44,11 @@ exports.destroy = function(req, res) {
 	});
 }
 exports.update = function(req, res) {
+	res.setHeader('Access-Control-Allow-Origin','*');
 	var data = req.body;
-	dri.updateItem(data, null, function(arr) {
-		res.send(arr);
+	var id = req.params.item;
+	dri.updateItem(id,data, function(numAffected) {
+		res.json(numAffected);
 	}, function(err) {
 		res.send(err);
 	});

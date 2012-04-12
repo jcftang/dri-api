@@ -36,12 +36,12 @@ describe('Tests for DRI APIv2', function() {
 				method : 'POST',
 				uri : socket + '/dev/collections',
 				json : {
-				"status" : "Open",
-				"properties" : {
-					"title" : "AutoTestColl",
-					"subtitle" : "AutoTestColl"
+					"status" : "Open",
+					"properties" : {
+						"title" : "AutoTestColl",
+						"subtitle" : "AutoTestColl"
+					}
 				}
-			}
 			}, function(err, resp, body) {
 				assert.isNull(err);
 				assert.isDefined(body);
@@ -61,7 +61,8 @@ describe('Tests for DRI APIv2', function() {
 						title : "AutoTestSeries",
 						subtitle : "AutoTestSeries"
 					},
-					status : "Open"
+					status : "Open",
+					parentId : collectionId
 				}
 			}, function(err, resp, body) {
 				assert.isNull(err);
@@ -82,7 +83,8 @@ describe('Tests for DRI APIv2', function() {
 						title : "AutoTestTitle",
 						subtitle : "AutoTestTitle"
 					},
-					status : "Open"
+					status : "Open",
+					parentId : seriesId
 				}
 			}, function(err, resp, body) {
 				assert.isNull(err);
@@ -93,68 +95,58 @@ describe('Tests for DRI APIv2', function() {
 			});
 		});
 	});
-	/*
-	 describe('PUT /dev/collections/:id/series/:id/items/:id', function() {
-	 it("should respond with the id of the updated item", function(done) {
-	 request({
-	 method : 'PUT',
-	 uri : socket + '/dev/collections/' + collectionId + '/series/' + seriesId + '/items/' + itemId,
-	 form : {
-	 _id : itemId,
-	 Title : 'Autobot titleUpdate',
-	 Subtitle : 'Autobot Subtitle',
-	 update : 'update',
-	 type : 'item',
-	 parentId : seriesId
-	 }
-	 }, function(err, resp, body) {
-	 assert.isNull(err);
-	 assert.isDefined(body);
-	 assert.length(body, 24);
-	 done();
-	 });
-	 });
-	 });
-	 describe('PUT /dev/collections/:id/series/:id', function() {
-	 it("should respond with the id of the updated series", function(done) {
-	 request({
-	 method : 'PUT',
-	 uri : socket + '/dev/collections/' + collectionId + '/series/' + seriesId,
-	 form : {
-	 _id : seriesId,
-	 Title : 'Autobot seriesUpdate',
-	 author : 'Autobot',
-	 update : 'update',
-	 type : 'series',
-	 parentId : collectionId
-	 }
-	 }, function(err, resp, body) {
-	 assert.isNull(err);
-	 assert.isDefined(body);
-	 assert.length(body, 24);
-	 done();
-	 });
-	 });
-	 });
-	 describe('PUT /dev/collections/:id', function() {
-	 it("should respond with the id of the updated series", function(done) {
-	 request({
-	 method : 'PUT',
-	 uri : socket + '/dev/collections/' + collectionId,
-	 form : {
-	 _id : collectionId,
-	 Title : 'Autobot collectionUpdate',
-	 type : 'collection',
-	 update : 'update'
-	 }
-	 }, function(err, resp, body) {
-	 assert.isNull(err);
-	 assert.isDefined(body);
-	 assert.length(body, 24);
-	 done();
-	 });
-	 });
-	 });*/
+	describe('PUT /dev/collections/:id/series/:id/items/:id', function() {
+		it("should respond with the id of the updated item", function(done) {
+			request({
+				method : 'PUT',
+				uri : socket + '/dev/collections/' + collectionId + '/series/' + seriesId + '/items/' + itemId,
+				json : {
+					properties : {
+						title : "I updated this"
+					}
+				}
+			}, function(err, resp, body) {
+				assert.isNull(err);
+				assert.equal(body, 1);
+				assert.isDefined(body);
+				done();
+			});
+		});
+	});
+	describe('PUT /dev/collections/:id/series/:id', function() {
+		it("should respond with the id of the updated series", function(done) {
+			request({
+				method : 'PUT',
+				uri : socket + '/dev/collections/' + collectionId + '/series/' + seriesId,
+				json : {
+					properties : {
+						title : "I updated this series"
+					}
+				}
+			}, function(err, resp, body) {
+				assert.isNull(err);
+				assert.isDefined(body);
+				done();
+			});
+		});
+	});
+	describe('PUT /dev/collections/:id', function() {
+		it("should respond with the id of the updated series", function(done) {
+			request({
+				method : 'PUT',
+				uri : socket + '/dev/collections/' + collectionId,
+				json : {
+					properties : {
+						title : "I updated this collection"
+					}
+				}
+			}, function(err, resp, body) {
+				assert.isNull(err);
+				assert.isDefined(body);
+				done();
+			});
+		});
+	});
 	describe('GET /dev/collections', function() {
 		it("should respond with an array of all the collections", function(done) {
 
@@ -164,7 +156,7 @@ describe('Tests for DRI APIv2', function() {
 			}, function(err, resp, body) {
 				assert.isNull(err);
 				assert.include(body, collectionId);
-				assert.include(body, "AutoTestColl");
+				assert.include(body, "I updated this collection");
 				done();
 			});
 		});
@@ -179,7 +171,7 @@ describe('Tests for DRI APIv2', function() {
 				var json = JSON.parse(body);
 				assert.isNull(err);
 				assert.isDefined(body);
-				assert.equal(json.properties.title, "AutoTestColl");
+				assert.equal(json.properties.title, "I updated this collection");
 				done();
 			});
 		});
@@ -192,7 +184,7 @@ describe('Tests for DRI APIv2', function() {
 			}, function(err, resp, body) {
 				assert.isNull(err);
 				assert.include(body, seriesId);
-				assert.include(body, "AutoTestSeries");
+				assert.include(body, "I updated this series");
 				done();
 			});
 		});
@@ -206,7 +198,7 @@ describe('Tests for DRI APIv2', function() {
 				var json = JSON.parse(body);
 				assert.isNull(err);
 				assert.isDefined(body);
-				assert.equal(json.properties.title, "AutoTestSeries");
+				assert.equal(json.properties.title, "I updated this series");
 				done();
 			});
 		});
@@ -219,7 +211,7 @@ describe('Tests for DRI APIv2', function() {
 			}, function(err, resp, body) {
 				assert.isNull(err);
 				assert.include(body, itemId);
-				assert.include(body, "AutoTestTitle");
+				assert.include(body, "I updated this");
 				done();
 			});
 		});
@@ -233,49 +225,48 @@ describe('Tests for DRI APIv2', function() {
 				var json = JSON.parse(body);
 				assert.isNull(err);
 				assert.isDefined(body);
-				assert.equal(json.properties.title, "AutoTestTitle");
+				assert.equal(json.properties.title, "I updated this");
 				done();
 			});
 		});
 	});
-	/*
-	 describe('DELETE /dev/collections/:id/series/:id/items/:id', function() {
-	 it("should respond with the id of the deleted item", function(done) {
-	 request({
-	 method : 'DELETE',
-	 uri : socket + '/dev/collections/' + collectionId + '/series/' + seriesId + '/items/' + itemId
-	 }, function(err, resp, body) {
-	 assert.isNull(err);
-	 assert.include(body, itemId);
-	 //assert.length(body, 24);
-	 done();
-	 });
-	 });
-	 });
-	 describe('DELETE /dev/collections/:id/series/:id', function() {
-	 it("should respond with the id of the deleted series", function(done) {
-	 request({
-	 method : 'DELETE',
-	 uri : socket + '/dev/collections/' + collectionId + '/series/' + seriesId
-	 }, function(err, resp, body) {
-	 assert.isNull(err);
-	 assert.include(body, seriesId);
-	 //assert.length(body, 24);
-	 done();
-	 });
-	 });
-	 });
-	 describe('DELETE /dev/collections/:id', function() {
-	 it("should respond with the id of the deleted collection", function(done) {
-	 request({
-	 method : 'DELETE',
-	 uri : socket + '/dev/collections/' + collectionId
-	 }, function(err, resp, body) {
-	 assert.isNull(err);
-	 assert.include(body, collectionId);
-	 //assert.length(body, 24);
-	 done();
-	 });
-	 });
-	 });*/
+	describe('DELETE /dev/collections/:id/series/:id/items/:id', function() {
+		it("should respond with the id of the deleted item", function(done) {
+			request({
+				method : 'DELETE',
+				uri : socket + '/dev/collections/' + collectionId + '/series/' + seriesId + '/items/' + itemId
+			}, function(err, resp, body) {
+				assert.isNull(err);
+				assert.include(body, itemId);
+				//assert.length(body, 24);
+				done();
+			});
+		});
+	});
+	describe('DELETE /dev/collections/:id/series/:id', function() {
+		it("should respond with the id of the deleted series", function(done) {
+			request({
+				method : 'DELETE',
+				uri : socket + '/dev/collections/' + collectionId + '/series/' + seriesId
+			}, function(err, resp, body) {
+				assert.isNull(err);
+				assert.include(body, seriesId);
+				//assert.length(body, 24);
+				done();
+			});
+		});
+	});
+	describe('DELETE /dev/collections/:id', function() {
+		it("should respond with the id of the deleted collection", function(done) {
+			request({
+				method : 'DELETE',
+				uri : socket + '/dev/collections/' + collectionId
+			}, function(err, resp, body) {
+				assert.isNull(err);
+				assert.include(body, collectionId);
+				//assert.length(body, 24);
+				done();
+			});
+		});
+	});
 });
