@@ -21,7 +21,9 @@ exports.show = function(req, res) {
 	});
 }
 exports.create = function(req, res) {
+	res.setHeader('Access-Control-Allow-Origin','*');
 	var data = req.body;
+	console.log(data)
 	dri.createCollection(data, function(arr) {
 		res.send(arr);
 	}, function(err){

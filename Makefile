@@ -18,7 +18,7 @@ test-md:
 test:
 	@NODE_PATH=./lib NODE_ENV=test ./node_modules/.bin/mocha \
 	--reporter $(REPORTER) \
-	--timeout 50000 \
+	--timeout 1000 \
 	test/*.js
 
 coverage: lib-cov

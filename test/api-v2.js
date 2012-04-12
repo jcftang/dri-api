@@ -31,16 +31,17 @@ describe('Tests for DRI APIv2', function() {
 	});
 	describe('POST /dev/collections', function() {
 		it("should respond with the id of the created collection", function(done) {
+
 			request({
 				method : 'POST',
 				uri : socket + '/dev/collections',
-				form : {
-					properties : {
-						title : "AutoTestColl",
-						subtitle : "AutoTestColl"
-					},
-					status : "Open"
+				json : {
+				"status" : "Open",
+				"properties" : {
+					"title" : "AutoTestColl",
+					"subtitle" : "AutoTestColl"
 				}
+			}
 			}, function(err, resp, body) {
 				assert.isNull(err);
 				assert.isDefined(body);
@@ -55,7 +56,7 @@ describe('Tests for DRI APIv2', function() {
 			request({
 				method : 'POST',
 				uri : socket + '/dev/collections/' + collectionId + '/series',
-				form : {
+				json : {
 					properties : {
 						title : "AutoTestSeries",
 						subtitle : "AutoTestSeries"
@@ -76,7 +77,7 @@ describe('Tests for DRI APIv2', function() {
 			request({
 				method : 'POST',
 				uri : socket + '/dev/collections/' + collectionId + '/series/' + seriesId + '/items',
-				form : {
+				json : {
 					properties : {
 						title : "AutoTestTitle",
 						subtitle : "AutoTestTitle"
@@ -178,7 +179,7 @@ describe('Tests for DRI APIv2', function() {
 				var json = JSON.parse(body);
 				assert.isNull(err);
 				assert.isDefined(body);
-				assert.equal(json.Title, "Autobot collection");
+				assert.equal(json.properties.title, "AutoTestColl");
 				done();
 			});
 		});
@@ -191,7 +192,7 @@ describe('Tests for DRI APIv2', function() {
 			}, function(err, resp, body) {
 				assert.isNull(err);
 				assert.include(body, seriesId);
-				assert.include(body, "Autobot series");
+				assert.include(body, "AutoTestSeries");
 				done();
 			});
 		});
@@ -205,7 +206,7 @@ describe('Tests for DRI APIv2', function() {
 				var json = JSON.parse(body);
 				assert.isNull(err);
 				assert.isDefined(body);
-				assert.equal(json.Title, "Autobot series");
+				assert.equal(json.properties.title, "AutoTestSeries");
 				done();
 			});
 		});
@@ -218,7 +219,7 @@ describe('Tests for DRI APIv2', function() {
 			}, function(err, resp, body) {
 				assert.isNull(err);
 				assert.include(body, itemId);
-				assert.include(body, "Autobot title");
+				assert.include(body, "AutoTestTitle");
 				done();
 			});
 		});
@@ -232,7 +233,7 @@ describe('Tests for DRI APIv2', function() {
 				var json = JSON.parse(body);
 				assert.isNull(err);
 				assert.isDefined(body);
-				assert.equal(json.Title, "Autobot title");
+				assert.equal(json.properties.title, "AutoTestTitle");
 				done();
 			});
 		});
