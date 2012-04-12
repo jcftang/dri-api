@@ -13,7 +13,7 @@ app.listen(port);
 
 //console.log("Express test server listening on port %d in %s mode", app.address().port, app.settings.env);
 
-describe('Test for DRI APIv2', function() {
+describe('Tests for DRI APIv2', function() {
 
 	var collectionId, seriesId, itemId;
 
@@ -220,7 +220,9 @@ describe('Test for DRI APIv2', function() {
 		it("should respond with the array containing the data of the specified item", function(done) {
 			request({
 				method : 'GET',
-				uri : socket + '/dev/collections/' + collectionId + '/series/' + seriesId + '/items/' + itemId
+				uri : socket + '/dev/collections/'
+					+ collectionId + '/series/'
+					+ seriesId + '/items/' + itemId
 			}, function(err, resp, body) {
 				var json = JSON.parse(body);
 				assert.isNull(err);
