@@ -11,14 +11,14 @@ appConfig.configure(app);
 appRoutes.createRoutes(app);
 app.listen(port);
 
-console.log("Express test server listening on port %d in %s mode", app.address().port, app.settings.env);
+//console.log("Express test server listening on port %d in %s mode", app.address().port, app.settings.env);
 
-describe('APIv2 tests', function() {
+describe('Test for DRI APIv2', function() {
 
 	var collectionId, seriesId, itemId;
 
 	describe('GET /', function() {
-		it("should respond with the documentation page", function(done) {
+		it("should respond with the root page, this is just a sanity check", function(done) {
 			request({
 				method : 'GET',
 				uri : socket + '/'
@@ -69,7 +69,9 @@ describe('APIv2 tests', function() {
 		it("should respond with the id of the created item", function(done) {
 			request({
 				method : 'POST',
-				uri : socket + '/dev/collections/' + collectionId + '/series/' + seriesId + '/items',
+				uri : socket + '/dev/collections/'
+					+ collectionId + '/series/' 
+					+ seriesId + '/items',
 				form : {
 					Title : 'Autobot title'
 				}
@@ -203,7 +205,9 @@ describe('APIv2 tests', function() {
 		it("should respond with an array of all the items corresponding to the given ids", function(done) {
 			request({
 				method : 'GET',
-				uri : socket + '/dev/collections/' + collectionId + '/series/' + seriesId + '/items'
+				uri : socket + '/dev/collections/' 
+					+ collectionId + '/series/'
+					+ seriesId + '/items'
 			}, function(err, resp, body) {
 				assert.isNull(err);
 				assert.include(body, itemId);
