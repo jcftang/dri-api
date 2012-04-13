@@ -41,11 +41,31 @@ exports.index = function(req, res) {
 }
 exports.show = function(req, res) {
 	var id = req.params.object;
-	dri.getObject(id, function(arr) {
-		res.json(arr);
-	}, function(err) {
-		res.json(err);
-	});
+	switch (req.format) {
+		case 'json':
+			dri.getObject(id, function(arr) {
+				res.json(arr);
+			}, function(err) {
+				res.json(err);
+			});
+			break;
+		case 'dc':
+			res.setHeader('Content-Type', 'text/xml');
+			dri.getObject(id, function(arr) {
+				var dc = converter.toDC(arr)
+				res.send(dc);
+			}, function(err) {
+				res.json(err);
+			});
+			break;
+		default:
+			dri.getObject(id, function(arr) {
+				res.json(arr);
+			}, function(err) {
+				res.json(err);
+			});
+	}
+
 }
 exports.create = function(req, res) {
 	res.setHeader('Access-Control-Allow-Origin', '*');
@@ -75,11 +95,38 @@ exports.update = function(req, res) {
 	});
 }
 exports.list = function(req, res) {
+	
 	var id = req.params.object;
-	dri.getChildren(id, function(arr) {
-		res.json(arr);
-	}, function(err) {
-		console.log(arr)
-		res.json(err);
-	});
+	switch (req.format) {
+		case 'json':
+			dri.getChildren(id, function(arr) {
+				res.json(arr);
+			}, function(err) {
+				console.log(arr)
+				res.json(err);
+			});
+			break;
+		case 'dc':
+			dri.getChildren(id, function(arr) {
+				res.setHeader('Content-Type', 'text/xml');
+				var xml = "<objects>";
+				for(var i = 0, j = arr.length; i < j; i++) {
+					var dc = converter.toDC(arr[i])
+					xml += dc
+				};
+				xml += "</objects>"
+				res.send(xml);
+			}, function(err) {
+				res.json(err);
+			});
+			break;
+		default:
+			dri.getChildren(id, function(arr) {
+				res.json(arr);
+			}, function(err) {
+				console.log(arr)
+				res.json(err);
+			});
+	}
+
 }
