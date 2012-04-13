@@ -9,15 +9,8 @@ exports.toDC = function(json) {
 	dcString += dcStart;
 	var dcEnd = '</oai_dc:dc>';
 
-	//Add all the titles
-	if(isArray(json.Title)) {
-		for(var i = 0, j = json.Title.length; i < j; i++) {
-			dcString += ' <dc:title>' + json.Title[i] + '</dc:title>';
-		}
-	} else {
-		dcString += ' <dc:title>' + json.Title + '</dc:title>';
-	}
-	dcString += ' <dc:identifier>' + json.objectId + '</dc:identifier>';
+	dcString += ' <dc:title>' + json.properties.title + '</dc:title>';
+	dcString += ' <dc:identifier>' + json._id + '</dc:identifier>';
 
 	//Add closing tag
 	dcString += dcEnd;
