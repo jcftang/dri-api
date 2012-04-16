@@ -17,6 +17,7 @@ exports.createRoutes = function make(app) {
 	
 	var objectsResource = app.resource('dev/objects', objectRoutes);
 	objectsResource.map('get','/:object/list',objectRoutes.list)
+	objectsResource.map('get','/:object/delete',objectRoutes.remove)
 	
 	var collectionsResource = app.resource('dev/collections', collectionsRoutes);
 	var seriesResource = app.resource('series', seriesRoutes);
