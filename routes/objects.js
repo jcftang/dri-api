@@ -104,8 +104,9 @@ exports.update = function(req, res) {
 }
 exports.edit = function(req, res) {
 	res.setHeader('Access-Control-Allow-Origin', '*');
-	var data = req.body;
+	var data = req.query;
 	var id = req.params.object;
+	console.log(req.query)
 	dri.updateObject(id, data, function(numAffected) {
 		res.json(numAffected);
 	}, function(err) {
