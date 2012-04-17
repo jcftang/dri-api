@@ -169,6 +169,31 @@ describe('Tests for DRI APIv2', function() {
 			});
 		});
 	});
+	describe('GET /dev/objects/:id', function() {
+		it("should respond with the JSON of the selected object", function(done) {
+			request({
+				method : 'GET',
+				uri : socket + '/dev/objects/'+collectionId
+			}, function(err, resp, body) {
+				assert.isNull(err);
+				assert.include(body, collectionId);
+				done();
+			});
+		});
+	});
+	describe('GET /dev/objects/:id.dc', function() {
+		it("should respond with the Dublin core XML of the selected object", function(done) {
+			request({
+				method : 'GET',
+				uri : socket + '/dev/objects/'+collectionId+'.dc'
+			}, function(err, resp, body) {
+				assert.isNull(err);
+				assert.include(body, collectionId);
+				assert.include(body, 'dc:');
+				done();
+			});
+		});
+	});
 	describe('GET /dev/objects/:id/list', function() {
 		it("should respond with the an array with all the children items", function(done) {
 			request({

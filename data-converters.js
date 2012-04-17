@@ -14,7 +14,7 @@ exports.toDC = function(json) {
 	for(var prop in json.properties) {
 			//console.log(json.properties)
 		if(json.properties.hasOwnProperty(prop)) {
-			tags = dc.getDCTags(prop)
+			var tags = dc.getDCTags(prop)
 			if(tags != undefined) {
 				if(prop == "_id") {
 					dcString += tags.start + json._id + tags.end;
@@ -45,7 +45,7 @@ exports.toMODS = function(json) {
 	for(var prop in json.properties) {
 			//console.log(json.properties)
 		if(json.properties.hasOwnProperty(prop)) {
-			tags = mods.getMODSTags(prop)
+			var tags = mods.getMODSTags(prop)
 			if(tags != undefined) {
 				if(prop == "_id") {
 					dcString += tags.start + json._id + tags.end;
