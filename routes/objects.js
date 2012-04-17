@@ -85,6 +85,7 @@ exports.destroy = function(req, res) {
 	});
 }
 exports.remove = function(req, res) {
+	res.setHeader('Access-Control-Allow-Origin', '*');
 	var id = req.params.object;
 	dri.removeObject(id, function(arr) {
 		res.send(arr);
