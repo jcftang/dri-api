@@ -1,6 +1,7 @@
 var assert = require('chai').assert;
 var request = require('request');
 var express = require('express');
+var http = require('http');
 var appRoutes = require('../app-routes');
 var appConfig = require('../app-config');
 var app = module.exports = express.createServer();
@@ -66,7 +67,7 @@ describe('Tests for DRI APIv2', function() {
 						"subtitle" : "AutoTestItem"
 					},
 					"type" : "series",
-					parentId:collectionId
+					parentId : collectionId
 				}
 			}, function(err, resp, body) {
 
@@ -90,7 +91,7 @@ describe('Tests for DRI APIv2', function() {
 						"subtitle" : "AutoTestColl"
 					},
 					"type" : "item",
-					parentId:seriesId
+					parentId : seriesId
 				}
 			}, function(err, resp, body) {
 
@@ -102,11 +103,11 @@ describe('Tests for DRI APIv2', function() {
 			});
 		});
 	});
-	describe('PUT /dev/objects/:id', function() {
+	describe('POST /dev/objects/:id/update', function() {
 		it("should respond with the id of the updated object", function(done) {
 			request({
-				method : 'PUT',
-				uri : socket + '/dev/objects/' + collectionId,
+				method : 'POST',
+				uri : socket + '/dev/objects/' + collectionId + '/update',
 				json : {
 					properties : {
 						title : "I updated this collection",
@@ -121,11 +122,11 @@ describe('Tests for DRI APIv2', function() {
 			});
 		});
 	});
-	describe('PUT /dev/objects/:id', function() {
+	describe('POST /dev/objects/:id/update', function() {
 		it("should respond with the id of the updated object", function(done) {
 			request({
-				method : 'PUT',
-				uri : socket + '/dev/objects/' + seriesId,
+				method : 'POST',
+				uri : socket + '/dev/objects/' + seriesId + '/update',
 				json : {
 					properties : {
 						title : "I updated this series"
@@ -139,11 +140,11 @@ describe('Tests for DRI APIv2', function() {
 			});
 		});
 	});
-	describe('PUT /dev/objects/:id', function() {
+	describe('POST /dev/objects/:id/update', function() {
 		it("should respond with the id of the updated object", function(done) {
 			request({
-				method : 'PUT',
-				uri : socket + '/dev/objects/' + itemId,
+				method : 'POST',
+				uri : socket + '/dev/objects/' + seriesId + '/update',
 				json : {
 					properties : {
 						title : "I updated this item"
@@ -173,10 +174,11 @@ describe('Tests for DRI APIv2', function() {
 		it("should respond with the JSON of the selected object", function(done) {
 			request({
 				method : 'GET',
-				uri : socket + '/dev/objects/'+collectionId
+				uri : socket + '/dev/objects/' + collectionId
 			}, function(err, resp, body) {
 				assert.isNull(err);
 				assert.include(body, collectionId);
+				assert.include(body, 'updated');
 				done();
 			});
 		});
@@ -185,7 +187,7 @@ describe('Tests for DRI APIv2', function() {
 		it("should respond with the Dublin core XML of the selected object", function(done) {
 			request({
 				method : 'GET',
-				uri : socket + '/dev/objects/'+collectionId+'.dc'
+				uri : socket + '/dev/objects/' + collectionId + '.dc'
 			}, function(err, resp, body) {
 				assert.isNull(err);
 				assert.include(body, collectionId);
@@ -198,7 +200,7 @@ describe('Tests for DRI APIv2', function() {
 		it("should respond with the an array with all the children items", function(done) {
 			request({
 				method : 'GET',
-				uri : socket + '/dev/objects/'+collectionId+'/list'
+				uri : socket + '/dev/objects/' + collectionId + '/list'
 			}, function(err, resp, body) {
 				assert.isNull(err);
 				assert.include(body, collectionId);
@@ -206,11 +208,11 @@ describe('Tests for DRI APIv2', function() {
 			});
 		});
 	});
-	describe('DELETE /dev/objects/:id', function() {
+	describe('GET /dev/objects/:id/delete', function() {
 		it("should respond with the id of the deleted object", function(done) {
 			request({
-				method : 'DELETE',
-				uri : socket + '/dev/objects/' + collectionId
+				method : 'GET',
+				uri : socket + '/dev/objects/' + collectionId + '/delete'
 			}, function(err, resp, body) {
 				assert.isNull(err);
 				assert.include(body, collectionId);
@@ -218,11 +220,11 @@ describe('Tests for DRI APIv2', function() {
 			});
 		});
 	});
-	describe('DELETE /dev/objects/:id', function() {
+	describe('GET /dev/objects/:id/delete', function() {
 		it("should respond with the id of the deleted object", function(done) {
 			request({
-				method : 'DELETE',
-				uri : socket + '/dev/objects/' + seriesId
+				method : 'GET',
+				uri : socket + '/dev/objects/' + seriesId + '/delete'
 			}, function(err, resp, body) {
 				assert.isNull(err);
 				assert.include(body, seriesId);
@@ -230,11 +232,11 @@ describe('Tests for DRI APIv2', function() {
 			});
 		});
 	});
-	describe('DELETE /dev/objects/:id', function() {
+	describe('GET /dev/objects/:id/delete', function() {
 		it("should respond with the id of the deleted object", function(done) {
 			request({
-				method : 'DELETE',
-				uri : socket + '/dev/objects/' + itemId
+				method : 'GET',
+				uri : socket + '/dev/objects/' + itemId + '/delete'
 			}, function(err, resp, body) {
 				assert.isNull(err);
 				assert.include(body, itemId);

@@ -99,14 +99,6 @@ exports.create = function(req, res) {
 		res.send(err);
 	});
 }
-exports.destroy = function(req, res) {
-	var id = req.params.object;
-	dri.removeObject(id, function(arr) {
-		res.send(arr);
-	}, function(err) {
-		res.send(err);
-	});
-}
 exports.remove = function(req, res) {
 	res.setHeader('Access-Control-Allow-Origin', '*');
 	var id = req.params.object;
@@ -116,21 +108,11 @@ exports.remove = function(req, res) {
 		res.send(err);
 	});
 }
+
 exports.update = function(req, res) {
 	res.setHeader('Access-Control-Allow-Origin', '*');
 	var data = req.body;
 	var id = req.params.object;
-	dri.updateObject(id, data, function(numAffected) {
-		res.json(numAffected);
-	}, function(err) {
-		res.send(err);
-	});
-}
-exports.edit = function(req, res) {
-	res.setHeader('Access-Control-Allow-Origin', '*');
-	var data = req.query;
-	var id = req.params.object;
-	console.log(req.query)
 	dri.updateObject(id, data, function(numAffected) {
 		res.json(numAffected);
 	}, function(err) {
