@@ -30,6 +30,20 @@ exports.index = function(req, res) {
 				res.json(err);
 			});
 			break;
+		case 'mods':
+			dri.getChildren(null, function(arr) {
+				res.setHeader('Content-Type', 'text/xml');
+				var xml = "<modsCollection>";
+				for(var i = 0, j = arr.length; i < j; i++) {
+					var mods = converter.toMODS(arr[i])
+					xml += mods
+				};
+				xml += "</modsCollection>"
+				res.send(xml);
+			}, function(err) {
+				res.json(err);
+			});
+			break;
 		default:
 			dri.getChildren(null, function(arr) {
 				res.json(arr);
@@ -54,6 +68,15 @@ exports.show = function(req, res) {
 			dri.getObject(id, function(arr) {
 				var dc = converter.toDC(arr)
 				res.send(dc);
+			}, function(err) {
+				res.json(err);
+			});
+			break;
+		case 'mods':
+			res.setHeader('Content-Type', 'text/xml');
+			dri.getObject(id, function(arr) {
+				var mods = converter.toMODS(arr)
+				res.send(mods);
 			}, function(err) {
 				res.json(err);
 			});
@@ -134,6 +157,20 @@ exports.list = function(req, res) {
 					xml += dc
 				};
 				xml += "</objects>"
+				res.send(xml);
+			}, function(err) {
+				res.json(err);
+			});
+			break;
+		case 'mods':
+			dri.getChildren(id, function(arr) {
+				res.setHeader('Content-Type', 'text/xml');
+				var xml = "<modsCollection>";
+				for(var i = 0, j = arr.length; i < j; i++) {
+					var mods = converter.toMODS(arr[i])
+					xml += mods
+				};
+				xml += "</modsCollection>"
 				res.send(xml);
 			}, function(err) {
 				res.json(err);

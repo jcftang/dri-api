@@ -80,7 +80,6 @@ describe('Tests for DRI APIv2', function() {
 	});
 	describe('POST /dev/objects type = item', function() {
 		it("should respond with the id of the created object", function(done) {
-
 			request({
 				method : 'POST',
 				uri : socket + '/dev/objects',
@@ -110,7 +109,8 @@ describe('Tests for DRI APIv2', function() {
 				uri : socket + '/dev/objects/' + collectionId,
 				json : {
 					properties : {
-						title : "I updated this collection"
+						title : "I updated this collection",
+						subtitle : "AutoTestSeries"
 					}
 				}
 			}, function(err, resp, body) {
