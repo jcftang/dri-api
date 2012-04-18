@@ -1,30 +1,26 @@
 /**
+ * @author Quirijn Groot Bluemink
  * Module dependencies.
  */
 var routes = require('./routes');
 var Resource = require('express-resource');
 
 var objectRoutes = require('./routes/objects');
-
-var documentsRoutes = require('./routes/documents');
-var collectionsRoutes = require('./routes/collections');
-var seriesRoutes = require('./routes/series');
-var itemsRoutes = require('./routes/items');
-var objectRoutes = require('./routes/objects');
+var devRoutes = require('./routes/dev');
 
 exports.createRoutes = function make(app) {
-	var documentsResource = app.resource('dev', documentsRoutes);
-	
+
+	// Creates mapping for the documentation page of the various versions
+	var devResource = app.resource('dev', devRoutes);
+
+	// Creates default mapping
 	var objectsResource = app.resource('dev/objects', objectRoutes);
+
+	// Adds custom route mappings
 	objectsResource.map('get','/:object/list',objectRoutes.list)
 	objectsResource.map('get','/:object/delete',objectRoutes.remove)
 	objectsResource.map('post','/:object/update',objectRoutes.update)
-	
-	var collectionsResource = app.resource('dev/collections', collectionsRoutes);
-	var seriesResource = app.resource('series', seriesRoutes);
-	var itemsResource = app.resource('items', itemsRoutes);
-	collectionsResource.add(seriesResource);
-	seriesResource.add(itemsResource);
-	
+
+	// Sets index page route
 	app.get('/', routes.index);
 }
