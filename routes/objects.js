@@ -6,6 +6,7 @@ var dri = require("dri");
 var fedora = require("fedora");
 var converter = require("../data-converters");
 
+// Returns the list of parent-less objects
 exports.index = function(req, res) {
 	switch (req.format) {
 		case 'json':
@@ -53,6 +54,7 @@ exports.index = function(req, res) {
 			});
 	}
 }
+// Returns the object given by the ID
 exports.show = function(req, res) {
 	var id = req.params.object;
 	switch (req.format) {
@@ -90,6 +92,7 @@ exports.show = function(req, res) {
 	}
 
 }
+// Creates an object with the given data
 exports.create = function(req, res) {
 	res.setHeader('Access-Control-Allow-Origin', '*');
 	var data = req.body;
@@ -99,6 +102,7 @@ exports.create = function(req, res) {
 		res.send(err);
 	});
 }
+// Removes the object with the corresponding ID
 exports.remove = function(req, res) {
 	res.setHeader('Access-Control-Allow-Origin', '*');
 	var id = req.params.object;
@@ -108,7 +112,7 @@ exports.remove = function(req, res) {
 		res.send(err);
 	});
 }
-
+// Updates the object with the given ID and data
 exports.update = function(req, res) {
 	res.setHeader('Access-Control-Allow-Origin', '*');
 	var data = req.body;
@@ -119,6 +123,7 @@ exports.update = function(req, res) {
 		res.send(err);
 	});
 }
+// Lists all the children of the given object ID
 exports.list = function(req, res) {
 
 	var id = req.params.object;

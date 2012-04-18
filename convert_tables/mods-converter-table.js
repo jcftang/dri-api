@@ -2,23 +2,9 @@
  * @author Quirijn Groot Bluemink
  */
 
-// Dublin Core Tags
+// MODS Tags
 // ================
-// Title
-// Creator
-// Subject
-// Description
-// Publisher
-// Contributor
-// Date
-// Type
-// Format
-// Identifier
-// Source
-// Language
-// Relation
-// Coverage
-// Rights
+//
 var mods_map = {
 //  json_value:xml_value
 	'title' : 'title',

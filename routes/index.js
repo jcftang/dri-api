@@ -1,10 +1,10 @@
 /*
+ * @author Quirijn Groot Bluemink
  * GET home page.
  */
 
-var dri = require("dri");
-var fedora = require("fedora");
 
+// Renders the main page
 exports.index = function(req, res) {
 	res.render('index', {
 		title : 'DRI API',

@@ -12,7 +12,6 @@ exports.toDC = function(json) {
 
 	//Add body
 	for(var prop in json.properties) {
-			//console.log(json.properties)
 		if(json.properties.hasOwnProperty(prop)) {
 			var tags = dc.getDCTags(prop)
 			if(tags != undefined) {
@@ -26,8 +25,6 @@ exports.toDC = function(json) {
 			}
 		}
 	}
-	// dcString += dc.getDCTags('title').start + json.properties.title + dc.getDCTags('title').end;
-	// dcString += dc.getDCTags('_id').start + json._id + dc.getDCTags('_id').end;
 
 	//Add closing tag
 	var dcEnd = '</oai_dc:dc>';
@@ -43,7 +40,6 @@ exports.toMODS = function(json) {
 
 	//Add body
 	for(var prop in json.properties) {
-			//console.log(json.properties)
 		if(json.properties.hasOwnProperty(prop)) {
 			var tags = mods.getMODSTags(prop)
 			if(tags != undefined) {
@@ -57,9 +53,6 @@ exports.toMODS = function(json) {
 			}
 		}
 	}
-	// dcString += dc.getDCTags('title').start + json.properties.title + dc.getDCTags('title').end;
-	// dcString += dc.getDCTags('_id').start + json._id + dc.getDCTags('_id').end;
-
 	//Add closing tag
 	var dcEnd = '</mods>';
 	dcString += dcEnd;

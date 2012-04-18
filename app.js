@@ -1,4 +1,5 @@
 /**
+ * @author Quirijn Groot Bluemink
  * Module dependencies.
  */
 
@@ -15,6 +16,7 @@ appConfig.configure(app);
 // See app-routes.js to see the routes for the application
 appRoutes.createRoutes(app);
 
+// Start the server on port 4000
 app.listen(4000, function() {
 	console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
 });

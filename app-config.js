@@ -1,11 +1,11 @@
 /**
+ * @author Quirijn Groot Bluemink
  * Module dependencies.
  */
 
 var express = require('express');
 exports.configure = function configure(app) {
 	// Configuration
-
 	app.configure(function() {
 		app.set('views', __dirname + '/views');
 		app.set('view options', {
