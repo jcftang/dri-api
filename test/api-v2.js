@@ -209,6 +209,18 @@ describe('Tests for DRI APIv2', function() {
 			});
 		});
 	});
+	describe('GET /dev/objects/:id/approve', function() {
+		it("should respond with the Fedora pid", function(done) {
+			request({
+				method : 'GET',
+				uri : socket + '/dev/objects/' + collectionId + '/approve'
+			}, function(err, resp, body) {
+				assert.isNull(err);
+				console.log(body)
+				done();
+			});
+		});
+	});
 	describe('GET /dev/objects/:id/delete', function() {
 		it("should respond with the id of the deleted object", function(done) {
 			request({

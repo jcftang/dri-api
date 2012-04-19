@@ -19,6 +19,7 @@ exports.createRoutes = function make(app) {
 	// Adds custom route mappings
 	objectsResource.map('get','/:object/list',objectRoutes.list)
 	objectsResource.map('get','/:object/delete',objectRoutes.remove)
+	objectsResource.map('get','/:object/approve',objectRoutes.approve)
 	objectsResource.map('post','/:object/update',objectRoutes.update)
 
 	// Sets index page route

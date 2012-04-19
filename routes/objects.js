@@ -3,7 +3,6 @@
  */
 
 var dri = require("dri");
-var fedora = require("fedora");
 var converter = require("../data-converters");
 
 // Returns the list of parent-less objects
@@ -174,3 +173,37 @@ exports.list = function(req, res) {
 	}
 
 }
+// Updates the object with the given ID and data
+exports.approve = function(req, res) {
+	var data = req.body;
+	var id = req.params.object;
+	dri.approveItem(id, "aFedoraLib", function(data){
+		res.send(data);
+	}, function(err){
+		console.log(err)
+		res.send(err);
+	})
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
