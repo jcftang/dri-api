@@ -37,7 +37,7 @@ describe('Tests for DRI APIv2', function() {
 				method : 'POST',
 				uri : socket + '/dev/objects',
 				json : {
-					"status" : "Open",
+					"status" : "open",
 					"properties" : {
 						"title" : "AutoTestSeries",
 						"subtitle" : "AutoTestSeries"
@@ -61,7 +61,7 @@ describe('Tests for DRI APIv2', function() {
 				method : 'POST',
 				uri : socket + '/dev/objects',
 				json : {
-					"status" : "Open",
+					"status" : "open",
 					"properties" : {
 						"title" : "AutoTestItem",
 						"subtitle" : "AutoTestItem"
@@ -85,7 +85,7 @@ describe('Tests for DRI APIv2', function() {
 				method : 'POST',
 				uri : socket + '/dev/objects',
 				json : {
-					"status" : "Open",
+					"status" : "open",
 					"properties" : {
 						"title" : "AutoTestColl",
 						"subtitle" : "AutoTestColl"
@@ -109,9 +109,10 @@ describe('Tests for DRI APIv2', function() {
 				method : 'POST',
 				uri : socket + '/dev/objects/' + collectionId + '/update',
 				json : {
-					properties : {
-						title : "I updated this collection",
-						subtitle : "AutoTestSeries"
+					"status":"open",
+					"properties" : {
+						"title" : "I updated this collection",
+						"subtitle" : "AutoTestSeries"
 					}
 				}
 			}, function(err, resp, body) {
