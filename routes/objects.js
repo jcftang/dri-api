@@ -6,17 +6,12 @@ var dri = require("dri");
 
 // Returns the list of parent-less objects
 exports.index = function(req, res) {
-	switch (req.format) {
-		case 'json':
-			dri.getChildren(null, function(arr) {
+	dri.getChildren(null, function(arr) {
+		switch (req.format) {
+			case 'json':
 				res.json(arr);
-			}, function(err) {
-				console.log(arr)
-				res.json(err);
-			});
-			break;
-		case 'dc':
-			dri.getChildren(null, function(arr) {
+				break;
+			case 'dc':
 				res.setHeader('Content-Type', 'text/xml');
 				var xml = "<objects>";
 				for(var i = 0, j = arr.length; i < j; i++) {
@@ -25,12 +20,8 @@ exports.index = function(req, res) {
 				};
 				xml += "</objects>"
 				res.send(xml);
-			}, function(err) {
-				res.json(err);
-			});
-			break;
-		case 'mods':
-			dri.getChildren(null, function(arr) {
+				break;
+			case 'mods':
 				res.setHeader('Content-Type', 'text/xml');
 				var xml = "<modsCollection>";
 				for(var i = 0, j = arr.length; i < j; i++) {
@@ -39,55 +30,40 @@ exports.index = function(req, res) {
 				};
 				xml += "</modsCollection>"
 				res.send(xml);
-			}, function(err) {
-				res.json(err);
-			});
-			break;
-		default:
-			dri.getChildren(null, function(arr) {
+				break;
+			default:
 				res.json(arr);
-			}, function(err) {
-				console.log(arr)
-				res.json(err);
-			});
-	}
+		}
+	}, function(err) {
+		console.log(arr)
+		res.json(err);
+	});
+
 }
 // Returns the object given by the ID
 exports.show = function(req, res) {
 	var id = req.params.object;
-	switch (req.format) {
-		case 'json':
-			dri.getObject(id, function(arr) {
+	dri.getObject(id, function(arr) {
+		switch (req.format) {
+			case 'json':
 				res.json(arr);
-			}, function(err) {
-				res.json(err);
-			});
-			break;
-		case 'dc':
-			res.setHeader('Content-Type', 'text/xml');
-			dri.getObject(id, function(arr) {
-				var dc =  dri.convertToDC(arr)
+				break;
+			case 'dc':
+				res.setHeader('Content-Type', 'text/xml');
+				var dc = dri.convertToDC(arr)
 				res.send(dc);
-			}, function(err) {
-				res.json(err);
-			});
-			break;
-		case 'mods':
-			res.setHeader('Content-Type', 'text/xml');
-			dri.getObject(id, function(arr) {
+				break;
+			case 'mods':
+				res.setHeader('Content-Type', 'text/xml');
 				var mods = dri.convertToMODS(arr)
 				res.send(mods);
-			}, function(err) {
-				res.json(err);
-			});
-			break;
-		default:
-			dri.getObject(id, function(arr) {
-				res.json(arr);
-			}, function(err) {
-				res.json(err);
-			});
-	}
+				break;
+			default:
+				res.json(arr)
+		}
+	}, function(err) {
+		res.json(err);
+	});
 
 }
 // Creates an object with the given data
@@ -123,33 +99,23 @@ exports.update = function(req, res) {
 }
 // Lists all the children of the given object ID
 exports.list = function(req, res) {
-
 	var id = req.params.object;
-	switch (req.format) {
-		case 'json':
-			dri.getChildren(id, function(arr) {
+	dri.getChildren(id, function(arr) {
+		switch (req.format) {
+			case 'json':
 				res.json(arr);
-			}, function(err) {
-				console.log(arr)
-				res.json(err);
-			});
-			break;
-		case 'dc':
-			dri.getChildren(id, function(arr) {
+				break;
+			case 'dc':
 				res.setHeader('Content-Type', 'text/xml');
 				var xml = "<objects>";
 				for(var i = 0, j = arr.length; i < j; i++) {
-					var dc =  dri.convertToDC(arr[i])
+					var dc = dri.convertToDC(arr[i])
 					xml += dc
 				};
 				xml += "</objects>"
 				res.send(xml);
-			}, function(err) {
-				res.json(err);
-			});
-			break;
-		case 'mods':
-			dri.getChildren(id, function(arr) {
+				break;
+			case 'mods':
 				res.setHeader('Content-Type', 'text/xml');
 				var xml = "<modsCollection>";
 				for(var i = 0, j = arr.length; i < j; i++) {
@@ -158,51 +124,24 @@ exports.list = function(req, res) {
 				};
 				xml += "</modsCollection>"
 				res.send(xml);
-			}, function(err) {
-				res.json(err);
-			});
-			break;
-		default:
-			dri.getChildren(id, function(arr) {
+				break;
+			default:
 				res.json(arr);
-			}, function(err) {
-				console.log(arr)
-				res.json(err);
-			});
-	}
+		}
+	}, function(err) {
+		console.log(arr)
+		res.json(err);
+	});
 
 }
 // Updates the object with the given ID and data
 exports.approve = function(req, res) {
 	var data = req.body;
 	var id = req.params.object;
-	dri.approveItem(id, "aFedoraLib", function(data){
+	dri.approveItem(id, "aFedoraLib", function(data) {
 		res.send(data);
-	}, function(err){
+	}, function(err) {
 		console.log(err)
 		res.send(err);
 	})
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
