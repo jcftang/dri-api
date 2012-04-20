@@ -3,7 +3,6 @@
  */
 
 var dri = require("dri");
-var converter = require("../data-converters");
 
 // Returns the list of parent-less objects
 exports.index = function(req, res) {
@@ -21,7 +20,7 @@ exports.index = function(req, res) {
 				res.setHeader('Content-Type', 'text/xml');
 				var xml = "<objects>";
 				for(var i = 0, j = arr.length; i < j; i++) {
-					var dc = converter.toDC(arr[i])
+					var dc = dri.convertToDC(arr[i])
 					xml += dc
 				};
 				xml += "</objects>"
@@ -35,7 +34,7 @@ exports.index = function(req, res) {
 				res.setHeader('Content-Type', 'text/xml');
 				var xml = "<modsCollection>";
 				for(var i = 0, j = arr.length; i < j; i++) {
-					var mods = converter.toMODS(arr[i])
+					var mods = dri.convertToMODS(arr[i])
 					xml += mods
 				};
 				xml += "</modsCollection>"
@@ -67,7 +66,7 @@ exports.show = function(req, res) {
 		case 'dc':
 			res.setHeader('Content-Type', 'text/xml');
 			dri.getObject(id, function(arr) {
-				var dc = converter.toDC(arr)
+				var dc =  dri.convertToDC(arr)
 				res.send(dc);
 			}, function(err) {
 				res.json(err);
@@ -76,7 +75,7 @@ exports.show = function(req, res) {
 		case 'mods':
 			res.setHeader('Content-Type', 'text/xml');
 			dri.getObject(id, function(arr) {
-				var mods = converter.toMODS(arr)
+				var mods = dri.convertToMODS(arr)
 				res.send(mods);
 			}, function(err) {
 				res.json(err);
@@ -140,7 +139,7 @@ exports.list = function(req, res) {
 				res.setHeader('Content-Type', 'text/xml');
 				var xml = "<objects>";
 				for(var i = 0, j = arr.length; i < j; i++) {
-					var dc = converter.toDC(arr[i])
+					var dc =  dri.convertToDC(arr[i])
 					xml += dc
 				};
 				xml += "</objects>"
@@ -154,7 +153,7 @@ exports.list = function(req, res) {
 				res.setHeader('Content-Type', 'text/xml');
 				var xml = "<modsCollection>";
 				for(var i = 0, j = arr.length; i < j; i++) {
-					var mods = converter.toMODS(arr[i])
+					var mods = dri.convertToMODS(arr[i])
 					xml += mods
 				};
 				xml += "</modsCollection>"
