@@ -12,7 +12,7 @@ exports.configure = function configure(app) {
 			layout : "_layouts/layout"
 		});
 		app.set('view engine', 'jade');
-		app.use(express.bodyParser());
+		//app.use(express.bodyParser({ uploadDir: __dirname }));
 		app.use(express.methodOverride());
 		app.use(app.router);
 		app.use(express.static(__dirname + '/public'));

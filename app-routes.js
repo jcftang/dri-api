@@ -7,6 +7,8 @@ var Resource = require('express-resource');
 
 var objectRoutes = require('./routes/objects');
 var devRoutes = require('./routes/dev');
+var uploadRoutes = require('./routes/upload');
+var dri = require("dri");
 
 exports.createRoutes = function make(app) {
 
@@ -17,11 +19,15 @@ exports.createRoutes = function make(app) {
 	var objectsResource = app.resource('dev/objects', objectRoutes);
 
 	// Adds custom route mappings
-	objectsResource.map('get','/:object/list',objectRoutes.list)
-	objectsResource.map('get','/:object/delete',objectRoutes.remove)
-	objectsResource.map('get','/:object/approve',objectRoutes.approve)
-	objectsResource.map('post','/:object/update',objectRoutes.update)
+	objectsResource.map('get', '/:object/list', objectRoutes.list)
+	objectsResource.map('get', '/:object/delete', objectRoutes.remove)
+	objectsResource.map('get', '/:object/approve', objectRoutes.approve)
+	objectsResource.map('post', '/:object/update', objectRoutes.update)
+	
+	// Creates default mapping
+	var uploadResource = app.resource('dev/upload', uploadRoutes);
 
 	// Sets index page route
 	app.get('/', routes.index);
+	
 }

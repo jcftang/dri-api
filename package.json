@@ -6,7 +6,7 @@
       "express": "2.5.8"
     , "jade": ">= 0.0.1"
     , "express-resource": ">= 0.2.4"
-    , "multipart": ">= 0.1.5"
+    , "formidable": ">= 1.0.9"
     , "dri": "http://howest-server.tchpc.tcd.ie/cgi-bin/cgit.cgi/howest/node/node-dri.git/snapshot/node-dri-master.tar.gz"
   },
 "scripts": {

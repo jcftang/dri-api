@@ -1,3 +1,7 @@
+/**
+ * @author mvanwamb
+ * @author Quirijn Groot Bluemink
+ */
 var assert = require('chai').assert;
 var request = require('request');
 var express = require('express');
