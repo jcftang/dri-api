@@ -5,7 +5,6 @@
 var assert = require('chai').assert;
 var request = require('request');
 var express = require('express');
-var http = require('http');
 var appRoutes = require('../app-routes');
 var appConfig = require('../app-config');
 var app = module.exports = express.createServer();
@@ -15,8 +14,6 @@ var socket = 'http://localhost:' + port;
 appConfig.configure(app);
 appRoutes.createRoutes(app);
 app.listen(port);
-
-//console.log("Express test server listening on port %d in %s mode", app.address().port, app.settings.env);
 
 describe('Tests for DRI APIv2', function() {
 
