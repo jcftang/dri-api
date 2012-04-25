@@ -11,7 +11,29 @@ var uploadRoutes = require('./routes/upload');
 var dri = require("dri");
 
 exports.createRoutes = function make(app) {
-
+	var fs = require('fs');
+	try {
+		fs.lstat('./config.json', function(e, file) {
+			if(e) {
+				//Config.json file doesn't exist
+				showConfigPage(app);
+			} else {
+				//Config.json exist
+				if(file.isFile()) {
+					//The config.json is a file
+					showAPI(app);
+				}else{
+					//config.json is not a file
+					showConfigPage(app);
+				}
+			}
+		});
+	
+	} catch (e) {
+		console.log(e)
+	}
+}
+function showAPI(app){
 	// Creates mapping for the documentation page of the various versions
 	var devResource = app.resource('dev', devRoutes);
 
@@ -29,5 +51,11 @@ exports.createRoutes = function make(app) {
 
 	// Sets index page route
 	app.get('/', routes.index);
+	
+}
+function showConfigPage(app) {
+
+	// Sets index page route
+	app.get('/', routes.config);
 	
 }

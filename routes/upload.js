@@ -2,7 +2,9 @@
  * GET home page.
  */
 var dri = require('dri')
-var formidable = require('formidable')
+//Load configuration file
+var fs = require('fs');
+var config = JSON.parse(fs.readFileSync('./config.json'))
 // Returns the list of parent-less objects
 exports.index = function(req, res) {
 	res.writeHead(200, {
@@ -13,30 +15,18 @@ exports.index = function(req, res) {
 // Creates an object with the given data
 exports.create = function(req, res) {
 
-	var form = new formidable.IncomingForm();
-	console.log("Preparing upload");
+//	console.log(req);
 
-	form.parse(req, function(error, fields, files) {
-		console.log(fields);
-		console.log(files);
-		if(error) {
-			res.writeHead(500, {
-				"Content-Type" : "text/plain"
-			});
-			res.end("CRAP! " + err + "\n");
-		}
-		dri.uploadFile(files, function(result) {
-
-			res.writeHead(200, {
-				"Content-Type" : "text/html"
-			});
-			res.end("Stored in " +result);
-		}, function(err) {
-			res.writeHead(500, {
-				"Content-Type" : "text/plain"
-			});
-			res.end("CRAP! " + err + "\n");
-		})
-	});
+	dri.uploadFile(req.files, config.uploadDirectory, function(result) {
+		res.writeHead(200, {
+			"Content-Type" : "text/html"
+		});
+		res.end("Stored in " + result);
+	}, function(err) {
+		res.writeHead(500, {
+			"Content-Type" : "text/plain"
+		});
+		res.end("CRAP! " + err + "\n");
+	})
 
 }

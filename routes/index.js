@@ -11,3 +11,9 @@ exports.index = function(req, res) {
 		id : 'index'
 	})
 };
+exports.config = function(req, res) {
+	res.render('error', {
+		title : 'DRI API',
+		id : 'error'
+	})
+};

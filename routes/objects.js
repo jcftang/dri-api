@@ -3,6 +3,9 @@
  */
 
 var dri = require("dri");
+//Load configuration file
+// var fs = require('fs');
+// var config = JSON.parse(fs.readFileSync('./config.json'))
 
 // Returns the list of parent-less objects
 exports.index = function(req, res) {
