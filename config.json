@@ -1,5 +1,6 @@
 {
     "uploadDirectory": "/tmp/uploads/"
-  , "version": "0.0.1"
-  , "private": true
+  , "fedoraURL": "howest-server.tchpc.tcd.ie"
+  , "fedoraPort": 9191
+  , "fedoraAuth": "fedoraAdmin:admin"
 }
