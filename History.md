@@ -1,4 +1,11 @@
 
+0.0.2 / 2012-04-27 
+==================
+
+  * updated startup message
+  * Merge branch 'master' of ssh://howest-server.tchpc.tcd.ie/howest/node/dri-api
+  * Structured code so that it throws an error when no config.json file is available
+
 0.0.1 / 2012-04-26 
 ==================
 
