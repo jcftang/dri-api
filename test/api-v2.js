@@ -5,6 +5,8 @@
 var assert = require('chai').assert;
 var request = require('request');
 var express = require('express');
+var fs = require('fs');
+var superagent = require('superagent');
 var appRoutes = require('../app-routes');
 var appConfig = require('../app-config');
 var app = module.exports = express.createServer();
@@ -31,6 +33,7 @@ describe('Tests for DRI APIv2', function() {
 			});
 		});
 	});
+
 	describe('POST /dev/objects type = collection', function() {
 		it("should respond with the id of the created object", function(done) {
 
@@ -104,13 +107,25 @@ describe('Tests for DRI APIv2', function() {
 			});
 		});
 	});
+
+	describe('POST /dev/objects type = item with binary object', function() {
+		it("should respond with the id of the created object", function(done) {
+			var req = superagent.post(socket + '/dev/objects')
+			.attach('/home/qgrootbl/Develop/dri-api/test/car.jpg', 'upload')
+			req.end(function(resp) {
+				 assert.isDefined(resp.text);
+				 assert.length(resp.text, 24);
+				done();
+			});
+		});
+	});
 	describe('POST /dev/objects/:id/update', function() {
 		it("should respond with the id of the updated object", function(done) {
 			request({
 				method : 'POST',
 				uri : socket + '/dev/objects/' + collectionId + '/update',
 				json : {
-					"status":"open",
+					"status" : "open",
 					"properties" : {
 						"title" : "I updated this collection",
 						"subtitle" : "AutoTestSeries"

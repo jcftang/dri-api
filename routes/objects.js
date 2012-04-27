@@ -69,10 +69,31 @@ exports.show = function(req, res) {
 // Creates an object with the given data
 exports.create = function(req, res) {
 	res.setHeader('Access-Control-Allow-Origin', '*');
+	//console.log(req)
+	var res = res
 	var data = req.body;
+	var files = req.files
+	//console.log(files)
 	dri.createObject(data, function(arr) {
-		res.send(arr);
+		var id = arr
+		if(files) {
+			//console.log("HAS FILES!")
+			dri.uploadFile(files, function(result) {
+				res.send(id);
+			}, function(err) {
+				res.writeHead(500, {
+					"Content-Type" : "text/plain"
+				});
+				res.end(err);
+			})
+		} else {
+			//console.log("HAS NOOOO FILES!")
+			res.send(arr);
+		}
 	}, function(err) {
+		res.writeHead(500, {
+			"Content-Type" : "text/plain"
+		});
 		res.send(err);
 	});
 }
