@@ -111,7 +111,7 @@ describe('Tests for DRI APIv2', function() {
 	describe('POST /dev/objects type = item with binary object', function() {
 		it("should respond with the id of the created object", function(done) {
 			var req = superagent.post(socket + '/dev/objects')
-			.attach('/home/qgrootbl/Develop/dri-api/test/car.jpg', 'upload')
+			.attach( __dirname + '/car.jpg', 'upload')
 			req.end(function(resp) {
 				 assert.isDefined(resp.text);
 				 assert.length(resp.text, 24);
