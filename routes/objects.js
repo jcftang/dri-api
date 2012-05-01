@@ -157,6 +157,7 @@ exports.list = function(req, res) {
 }
 // Updates the object with the given ID and data
 exports.approve = function(req, res) {
+	res.setHeader('Access-Control-Allow-Origin', '*');
 	var data = req.body;
 	var id = req.params.object;
 	dri.approveItem(id, "aFedoraLib", function(data) {
