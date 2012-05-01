@@ -5,7 +5,6 @@
 
 var routes = require('./routes');
 exports.createRoutes = function make(app) {
-	//showConfigPage(app);
 	showAPI(app);
 }
 function showAPI(app) {
@@ -14,6 +13,7 @@ function showAPI(app) {
 	var objectRoutes = require('./routes/objects');
 	var devRoutes = require('./routes/dev');
 	var uploadRoutes = require('./routes/upload');
+	var fedoraRoutes = require('./routes/fedora');
 	// Creates mapping for the documentation page of the various versions
 	var devResource = app.resource('dev', devRoutes);
 
@@ -26,17 +26,11 @@ function showAPI(app) {
 	objectsResource.map('get', '/:object/approve', objectRoutes.approve)
 	objectsResource.map('post', '/:object/update', objectRoutes.update)
 
-	// Creates default mapping
+
 	var uploadResource = app.resource('dev/upload', uploadRoutes);
+	var fedoraResource = app.resource('dev/fedora', fedoraRoutes);
 
 	// Sets index page route
 	app.get('/', routes.index);
-
-}
-
-function showConfigPage(app) {
-
-	// Sets index page route
-	app.get('/', routes.config);
 
 }
