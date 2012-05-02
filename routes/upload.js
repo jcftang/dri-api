@@ -34,7 +34,6 @@ exports.create = function(req, res) {
 
 }
 
-
 function uploadFile(res, req, file, count) {
 	res.setHeader('Access-Control-Allow-Origin', '*');
 	dri.uploadFile(file, function(result) {
