@@ -1,5 +1,7 @@
 /*
  * GET home page.
+ * @author: Matthias Van Wambeke
+ * @author: Quirijn Groot Bleumink
  */
 var dri = require('dri')
 
