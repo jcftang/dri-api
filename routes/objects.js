@@ -167,3 +167,26 @@ exports.approve = function(req, res) {
 		res.send(err);
 	})
 }
+
+exports.compare = function(req, res) {
+	var id = req.params.object;
+	dri.getObject(id, function(arr) {
+		var json = {};
+		json.mongo = arr
+		json.mongo.fedoraId = "aFedoraLib:408"
+		if(json.mongo.fedoraId) {
+			dri.fedora.getFedoraObject(json.mongo.fedoraId, function(data) {
+				json.fedora = data
+				res.json(json)
+			}, function(err) {
+				console.log(err)
+				res.end(err);
+			})
+		} else {
+			json.fedora = "This object hasn't been pushed to Fedora"
+			res.json(json)
+		}
+	}, function(err) {
+		res.json(err);
+	});
+}

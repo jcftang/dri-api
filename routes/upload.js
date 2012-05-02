@@ -16,6 +16,7 @@ exports.index = function(req, res) {
 
 var amountOfFiles = 1;
 exports.create = function(req, res) {
+
 	if(req.files.files[0].size != undefined) {
 		amountOfFiles = 1
 		uploadFile(res,req,req.files.files[0],1)
@@ -27,6 +28,7 @@ exports.create = function(req, res) {
 			uploadFile(res,req,req.files.files[0][i],i+1)
 		}
 	}
+
 
 	//console.log("HAS FILES!")
 
