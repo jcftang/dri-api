@@ -11,12 +11,35 @@ exports.index = function(req, res) {
 	res.end('<form action="upload" enctype="multipart/form-data" method="post">' + '<input type="text" name="title"><br>' + '<input type="file" name="upload"><br>' + '<input type="submit" value="Upload">' + '</form>');
 }
 // Creates an object with the given data
+
+var amountOfFiles = 1;
 exports.create = function(req, res) {
-	res.setHeader('Access-Control-Allow-Origin', '*');
+	if(req.files.files[0].size != undefined) {
+		amountOfFiles = 1
+		uploadFile(res,req,req.files.files[0],1)
+
+	} else {
+		amountOfFiles = req.files.files[0].length;
+		for(var i = 0 ;i < req.files.files[0].length;i++) {
+
+			uploadFile(res,req,req.files.files[0][i],i+1)
+		}
+	}
 
 	//console.log("HAS FILES!")
-	dri.uploadFile(req.files, function(result) {
-		res.send(result);
+
+}
+
+
+function uploadFile(res, req, file, count) {
+	res.setHeader('Access-Control-Allow-Origin', '*');
+	dri.uploadFile(file, function(result) {
+		if(amountOfFiles == 1) {
+			res.redirect(req.body.redirect + "[" + JSON.stringify(req.files.files[0]) + "]")
+		} else if(count == amountOfFiles) {
+			res.redirect(req.body.redirect + JSON.stringify(req.files.files[0]))
+		}
+
 	}, function(err) {
 		res.writeHead(500, {
 			"Content-Type" : "text/plain"
@@ -24,3 +47,5 @@ exports.create = function(req, res) {
 		res.end(err);
 	})
 }
+
+
