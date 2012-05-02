@@ -13,7 +13,6 @@ exports.index = function(req, res) {
 // Creates an object with the given data
 exports.create = function(req, res) {
 	res.setHeader('Access-Control-Allow-Origin', '*');
-
 	//console.log("HAS FILES!")
 	dri.uploadFile(req.files, function(result) {
 		res.send(result);
