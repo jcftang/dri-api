@@ -108,13 +108,13 @@ describe('Tests for DRI APIv2', function() {
 		});
 	});
 
-	describe('POST /dev/objects type = item with binary object', function() {
-		it("should respond with the id of the created object", function(done) {
-			var req = superagent.post(socket + '/dev/objects')
+	describe('POST /dev/upload type = item with binary object', function() {
+		it("should respond with the path of the uploaded file", function(done) {
+			var req = superagent.post(socket + '/dev/upload')
 			.attach( __dirname + '/car.jpg', 'upload')
 			req.end(function(resp) {
 				 assert.isDefined(resp.text);
-				 assert.length(resp.text, 24);
+				 assert.equal(resp.text.substring(0,5), "/tmp/");
 				done();
 			});
 		});

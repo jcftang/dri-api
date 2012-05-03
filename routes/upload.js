@@ -44,8 +44,10 @@ function uploadFile(res, req, file, count) {
 			res.send(result);
 		}
 		else if(amountOfFiles == 1) {
+			req.files.files[0].filelocation = result;
 			res.redirect(req.body.redirect + "[" + JSON.stringify(req.files.files[0]) + "]")
 		} else if(count == amountOfFiles) {
+			req.files.files[0].filelocation = result;
 			res.redirect(req.body.redirect + JSON.stringify(req.files.files[0]))
 		}
 
