@@ -160,11 +160,26 @@ exports.approve = function(req, res) {
 	res.setHeader('Access-Control-Allow-Origin', '*');
 	var data = req.body;
 	var id = req.params.object;
-	dri.approveItem(id, "aFedoraLib", function(data) {
-		res.send(data);
+	dri.getObject(id, function(data) {
+		dri.approveItem(id, "aFedoraLib", function(pid) {
+			console.log("Item created: " + pid)
+			data.status = "approved"
+			data.fedoraId = pid//.replace(":","")
+			// console.log(data._id)
+			// console.log(data)
+			dri.updateObject(data._id, data, function(result) {
+				console.log(result)
+				res.send(pid)
+			}, function(e) {
+				console.log(e)
+			})
+			res.send(data);
+		}, function(err) {
+			console.log(err)
+			res.send(err);
+		})
 	}, function(err) {
-		console.log(err)
-		res.send(err);
+		onError(err)
 	})
 }
 
