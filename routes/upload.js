@@ -16,8 +16,11 @@ exports.index = function(req, res) {
 
 var amountOfFiles = 1;
 exports.create = function(req, res) {
-
-	if(req.files.files[0].size != undefined) {
+	console.log(req.files.upload)
+	if(req.files.upload){
+		uploadFile(res,req,req.files.upload,1)
+	}
+	else if(req.files.files[0].size != undefined) {
 		amountOfFiles = 1
 		uploadFile(res,req,req.files.files[0],1)
 
