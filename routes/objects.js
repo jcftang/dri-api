@@ -165,9 +165,12 @@ exports.approve = function(req, res) {
 			console.log("Item created: " + pid)
 			data.status = "approved"
 			data.fedoraId = pid//.replace(":","")
+			data = JSON.parse(JSON.stringify(data))
+			var mongoId =data._id
+			delete data._id
 			// console.log(data._id)
 			// console.log(data)
-			dri.updateObject(data._id, data, function(result) {
+			dri.updateObject(mongoId, data, function(result) {
 				console.log(result)
 				res.send(pid)
 			}, function(e) {
