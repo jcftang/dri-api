@@ -161,17 +161,16 @@ exports.approve = function(req, res) {
 	var data = req.body;
 	var id = req.params.object;
 	dri.getObject(id, function(data) {
-		dri.approveItem(id, "aFedoraLib", function(pid) {
-			console.log("Item created: " + pid)
+		dri.approveItem(data, "9FedoraLib", function(pid) {
+			//console.log("Item created: " + pid)
 			data.status = "approved"
-			data.fedoraId = pid//.replace(":","")
+			data.fedoraId = pid
 			data = JSON.parse(JSON.stringify(data))
-			var mongoId =data._id
+			// Mongo ID must be removed or Mongo throws error when updating
+			var mongoId = data._id
 			delete data._id
-			// console.log(data._id)
-			// console.log(data)
 			dri.updateObject(mongoId, data, function(result) {
-				console.log(result)
+				//console.log(result)
 				res.send(pid)
 			}, function(e) {
 				console.log(e)
@@ -179,7 +178,7 @@ exports.approve = function(req, res) {
 			res.send(data);
 		}, function(err) {
 			console.log(err)
-			res.send(err);
+			res.send(err)
 		})
 	}, function(err) {
 		onError(err)
@@ -191,7 +190,6 @@ exports.compare = function(req, res) {
 	dri.getObject(id, function(arr) {
 		var json = {};
 		json.mongo = arr
-		json.mongo.fedoraId = "aFedoraLib:408"
 		if(json.mongo.fedoraId) {
 			dri.fedora.getFedoraObject(json.mongo.fedoraId, function(data) {
 				json.fedora = data

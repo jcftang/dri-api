@@ -41,12 +41,13 @@ describe('Tests for DRI APIv2', function() {
 				method : 'POST',
 				uri : socket + '/dev/objects',
 				json : {
-					"status" : "open",
-					"properties" : {
-						"title" : "AutoTestSeries",
-						"subtitle" : "AutoTestSeries"
-					},
-					"type" : "collection"
+					status : "open",
+					type : "collection",
+					properties : {
+						titleInfo : [{
+							title : "This is a Collection title!"
+						}]
+					}
 				}
 			}, function(err, resp, body) {
 
@@ -65,16 +66,16 @@ describe('Tests for DRI APIv2', function() {
 				method : 'POST',
 				uri : socket + '/dev/objects',
 				json : {
-					"status" : "open",
-					"properties" : {
-						"title" : "AutoTestItem",
-						"subtitle" : "AutoTestItem"
+					status : "open",
+					type : "series",
+					properties : {
+						titleInfo : [{
+							title : "This is a Series title!"
+						}]
 					},
-					"type" : "series",
 					parentId : collectionId
 				}
 			}, function(err, resp, body) {
-
 				assert.isNull(err);
 				assert.isDefined(body);
 				assert.length(body, 24);
@@ -89,16 +90,16 @@ describe('Tests for DRI APIv2', function() {
 				method : 'POST',
 				uri : socket + '/dev/objects',
 				json : {
-					"status" : "open",
-					"properties" : {
-						"title" : "AutoTestColl",
-						"subtitle" : "AutoTestColl"
+					status : "open",
+					properties : {
+						titleInfo : [{
+							title : "This is a item title!"
+						}]
 					},
 					"type" : "item",
 					parentId : seriesId
 				}
 			}, function(err, resp, body) {
-
 				assert.isNull(err);
 				assert.isDefined(body);
 				assert.length(body, 24);
@@ -110,11 +111,10 @@ describe('Tests for DRI APIv2', function() {
 
 	describe('POST /dev/upload type = item with binary object', function() {
 		it("should respond with the path of the uploaded file", function(done) {
-			var req = superagent.post(socket + '/dev/upload')
-			.attach( __dirname + '/car.jpg', 'upload')
+			var req = superagent.post(socket + '/dev/upload').attach(__dirname + '/car.jpg', 'upload')
 			req.end(function(resp) {
-				 assert.isDefined(resp.text);
-				 assert.equal(resp.text.substring(0,5), "/tmp/");
+				assert.isDefined(resp.text);
+				assert.include(resp, "car.jpg");
 				done();
 			});
 		});
@@ -125,10 +125,11 @@ describe('Tests for DRI APIv2', function() {
 				method : 'POST',
 				uri : socket + '/dev/objects/' + collectionId + '/update',
 				json : {
-					"status" : "open",
-					"properties" : {
-						"title" : "I updated this collection",
-						"subtitle" : "AutoTestSeries"
+					status : "open",
+					properties : {
+						titleInfo : [{
+							title : "This is a updated collection title!"
+						}]
 					}
 				}
 			}, function(err, resp, body) {
@@ -145,8 +146,11 @@ describe('Tests for DRI APIv2', function() {
 				method : 'POST',
 				uri : socket + '/dev/objects/' + seriesId + '/update',
 				json : {
+					status : "open",
 					properties : {
-						title : "I updated this series"
+						titleInfo : [{
+							title : "This is a updated series title!"
+						}]
 					}
 				}
 			}, function(err, resp, body) {
@@ -161,10 +165,13 @@ describe('Tests for DRI APIv2', function() {
 		it("should respond with the id of the updated object", function(done) {
 			request({
 				method : 'POST',
-				uri : socket + '/dev/objects/' + seriesId + '/update',
+				uri : socket + '/dev/objects/' + itemId + '/update',
 				json : {
+					status : "open",
 					properties : {
-						title : "I updated this item"
+						titleInfo : [{
+							title : "This is a updated item title!"
+						}]
 					}
 				}
 			}, function(err, resp, body) {
@@ -232,7 +239,6 @@ describe('Tests for DRI APIv2', function() {
 				uri : socket + '/dev/objects/' + collectionId + '/approve'
 			}, function(err, resp, body) {
 				assert.isNull(err);
-				console.log(body)
 				done();
 			});
 		});
