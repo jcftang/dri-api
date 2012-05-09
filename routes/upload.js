@@ -36,10 +36,10 @@ function uploadFile(res, req, file, count) {
 		if(req.files.upload) {
 			res.send(result);
 		} else if(amountOfFiles == 1) {
-			req.files.files[0].filelocation = result;
+			req.files.files[0].fileLocation = result;
 			res.redirect(req.body.redirect + "[" + JSON.stringify(req.files.files[0]) + "]")
 		} else if(count == amountOfFiles) {
-			req.files.files[0].filelocation = result;
+			req.files.files[0].fileLocation = result;
 			res.redirect(req.body.redirect + JSON.stringify(req.files.files[0]))
 		}
 	}, function(err) {
