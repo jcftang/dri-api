@@ -24,25 +24,30 @@ exports.create = function(req, res) {
 		uploadFile(res, req, req.files.files[0], 1)
 	} else {
 		amountOfFiles = req.files.files[0].length;
-		for(var i = 0; i < req.files.files[0].length; i++) {
-			uploadFile(res, req, req.files.files[0][i], i + 1)
-		}
+		uploadFile(res, req, req.files.files[0][0], 1)
 	}
 
 }
 function uploadFile(res, req, file, count) {
 	res.setHeader('Access-Control-Allow-Origin', '*');
 	dri.uploadFile(file, function(result) {
+		console.log(count-1)
 		if(req.files.upload) {
 			res.send(result);
 		} else if(amountOfFiles == 1) {
+			console.log("else1")
 			req.files.files[0].fileLocation = result;
 			res.redirect(req.body.redirect + "[" + JSON.stringify(req.files.files[0]) + "]")
-		} else if(count == amountOfFiles) {
+		} else if(count == amountOfFiles && amountOfFiles > 1) {
+			console.log("else2")
 			req.files.files[0][count-1].fileLocation = result;
+			//console.log(req.files.files[0])
 			res.redirect(req.body.redirect + JSON.stringify(req.files.files[0]))
-		}else if(amountOfFiles != 1 ){
+		}else if(amountOfFiles > 1){
 			req.files.files[0][count-1].fileLocation = result;
+		}
+		if(count < amountOfFiles){
+			uploadFile(res,req,req.files.files[0][count],count+1)
 		}
 	}, function(err) {
 		res.writeHead(500, {
