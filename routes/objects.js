@@ -3,6 +3,7 @@
  */
 
 var dri = require("dri");
+var config = require('../config');
 
 // Returns the list of parent-less objects
 exports.index = function(req, res) {
@@ -178,7 +179,7 @@ exports.approve = function(req, res) {
 	var data = req.body;
 	var id = req.params.object;
 	dri.getObject(id, function(data) {
-		dri.approveItem(data, "7FedoraLib", function(pid) {
+		dri.approveItem(data, config.fedoraNamespace, function(pid) {
 			//console.log("Item created: " + pid)
 			data.status = "approved"
 			data.fedoraId = pid
