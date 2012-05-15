@@ -19,8 +19,9 @@ exports.index = function(req, res) {
 		var responseData = {}
 		responseData.meta = {}
 		responseData.meta.numPages = numPages
+		responseData.meta.amount = amount
+		responseData.meta.page = page+1
 		responseData.objects = arr
-		res.setHeader('numPages', numPages);
 		switch (req.format) {
 			case 'json':
 				res.json(responseData);
@@ -143,10 +144,11 @@ exports.list = function(req, res) {
 	amount = typeof amount !== 'undefined' ? amount : 20;
 
 	dri.getChildren(id, page, amount, function(arr, numPages) {
-
 		var responseData = {}
 		responseData.meta = {}
 		responseData.meta.numPages = numPages
+		responseData.meta.amount = amount
+		responseData.meta.page = parseInt(page)
 		responseData.objects = arr
 		switch (req.format) {
 			case 'json':
