@@ -20,7 +20,7 @@ exports.index = function(req, res) {
 		responseData.meta = {}
 		responseData.meta.numPages = numPages
 		responseData.meta.amount = amount
-		responseData.meta.page = page+1
+		responseData.meta.page = parseInt(page)
 		responseData.objects = arr
 		switch (req.format) {
 			case 'json':
