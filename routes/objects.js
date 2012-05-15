@@ -143,11 +143,14 @@ exports.list = function(req, res) {
 	amount = typeof amount !== 'undefined' ? amount : 20;
 
 	dri.getChildren(id, page, amount, function(arr, numPages) {
-		console.log(numPages)
-		res.setHeader('numPages', numPages);
+
+		var responseData = {}
+		responseData.meta = {}
+		responseData.meta.numPages = numPages
+		responseData.objects = arr
 		switch (req.format) {
 			case 'json':
-				res.json(arr);
+				res.json(responseData);
 				break;
 			case 'dc':
 				res.setHeader('Content-Type', 'text/xml');
@@ -170,10 +173,10 @@ exports.list = function(req, res) {
 				res.send(xml);
 				break;
 			default:
-				res.json(arr);
+				res.json(responseData);
 		}
 	}, function(err) {
-		console.log(arr)
+		console.log(responseData)
 		res.json(err);
 	});
 
