@@ -6,14 +6,15 @@ var dri = require("dri");
 
 // Returns the list of parent-less objects
 exports.index = function(req, res) {
-	
+
 	// For pagination
 	var page = req.query.page
 	var amount = req.query.amount
 	page = typeof page !== 'undefined' ? page : 0;
 	amount = typeof amount !== 'undefined' ? amount : 20;
-	
-	dri.getChildren(null, page, amount, function(arr) {
+
+	dri.getChildren(null, page, amount, function(arr, numPages) {
+		res.setHeader('numPages', numPages);
 		switch (req.format) {
 			case 'json':
 				res.json(arr);
@@ -128,14 +129,16 @@ exports.update = function(req, res) {
 // Lists all the children of the given object ID
 exports.list = function(req, res) {
 	var id = req.params.object;
-	
+
 	// For pagination
 	var page = req.query.page
 	var amount = req.query.amount
 	page = typeof page !== 'undefined' ? page : 0;
 	amount = typeof amount !== 'undefined' ? amount : 20;
-	
-	dri.getChildren(id, page, amount, function(arr) {
+
+	dri.getChildren(id, page, amount, function(arr, numPages) {
+		console.log(numPages)
+		res.setHeader('numPages', numPages);
 		switch (req.format) {
 			case 'json':
 				res.json(arr);
