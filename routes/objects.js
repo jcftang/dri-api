@@ -8,6 +8,7 @@ var config = require('../config');
 // Returns the list of parent-less objects
 exports.index = function(req, res) {
 
+	res.setHeader('Access-Control-Allow-Origin', '*');
 	// For pagination
 	var page = req.query.page
 	var amount = req.query.amount
@@ -15,10 +16,14 @@ exports.index = function(req, res) {
 	amount = typeof amount !== 'undefined' ? amount : 20;
 
 	dri.getChildren(null, page, amount, function(arr, numPages) {
+		var responseData = {}
+		responseData.meta = {}
+		responseData.meta.numPages = numPages
+		responseData.objects = arr
 		res.setHeader('numPages', numPages);
 		switch (req.format) {
 			case 'json':
-				res.json(arr);
+				res.json(responseData);
 				break;
 			case 'dc':
 				res.setHeader('Content-Type', 'text/xml');
@@ -41,7 +46,7 @@ exports.index = function(req, res) {
 				res.send(xml);
 				break;
 			default:
-				res.json(arr);
+				res.json(responseData);
 		}
 	}, function(err) {
 		console.log(arr)
