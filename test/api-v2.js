@@ -50,10 +50,9 @@ describe('Tests for DRI APIv2', function() {
 					}
 				}
 			}, function(err, resp, body) {
-
 				assert.isNull(err);
 				assert.isDefined(body);
-				assert.length(body, 24);
+				assert.lengthOf(body, 24);
 				collectionId = body;
 				done();
 			});
@@ -78,7 +77,7 @@ describe('Tests for DRI APIv2', function() {
 			}, function(err, resp, body) {
 				assert.isNull(err);
 				assert.isDefined(body);
-				assert.length(body, 24);
+				assert.lengthOf(body, 24);
 				seriesId = body;
 				done();
 			});
@@ -102,7 +101,7 @@ describe('Tests for DRI APIv2', function() {
 			}, function(err, resp, body) {
 				assert.isNull(err);
 				assert.isDefined(body);
-				assert.length(body, 24);
+				assert.lengthOf(body, 24);
 				itemId = body;
 				done();
 			});
