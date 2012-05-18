@@ -39,14 +39,8 @@ function showAPI(app) {
 		res.render('404.jade', {
 			status : 404,
 			title: "404 - Error",
-			url : req.url
-		});
-	});
-	app.use(function(req, res, next) {
-		res.render('404.jade', {
-			status : 404,
-			title: "404 - Error",
-			url : req.url
+			url : req.url,
+			id:"/404"
 		});
 	});
 
