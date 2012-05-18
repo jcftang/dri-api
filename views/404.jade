@@ -7,6 +7,20 @@ html
     link(href='/stylesheets/css/style.css', rel='stylesheet')
     script(src='/javascripts/js/bootstrap.min.js')
   body
+  div.navbar
+    .navbar-inner
+        .container
+            a(data-toggle='collapse',data-target='.nav-collapse').btn.btn-navbar
+                span.icon-bar
+                span.icon-bar
+                span.icon-bar
+            a.brand(href='/') DRI
+            .nav-collapse
+                ul.nav
+                    - var obj = { '/': 'Home', '/dev':'Development' }
+                        - each val, key in obj
+                            li
+                              a(href='#{key}') #{val}
   div.container
     div.dummy &nbsp;
     div.hero-unit
