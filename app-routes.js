@@ -27,11 +27,27 @@ function showAPI(app) {
 	objectsResource.map('get', '/:object/compare', objectRoutes.compare)
 	objectsResource.map('post', '/:object/update', objectRoutes.update)
 
-
 	var uploadResource = app.resource('dev/upload', uploadRoutes);
 	var fedoraResource = app.resource('dev/fedora', fedoraRoutes);
 
 	// Sets index page route
 	app.get('/', routes.index);
+	
+	
+	// Add Error pages
+	app.use(function(req, res, next) {
+		res.render('404.jade', {
+			status : 404,
+			title: "404 - Error",
+			url : req.url
+		});
+	});
+	app.use(function(req, res, next) {
+		res.render('404.jade', {
+			status : 404,
+			title: "404 - Error",
+			url : req.url
+		});
+	});
 
 }
