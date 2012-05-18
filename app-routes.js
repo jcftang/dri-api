@@ -32,15 +32,21 @@ function showAPI(app) {
 
 	// Sets index page route
 	app.get('/', routes.index);
-	
-	
+
 	// Add Error pages
 	app.use(function(req, res, next) {
 		res.render('404.jade', {
 			status : 404,
-			title: "404 - Error",
+			title : "404 - Error",
 			url : req.url,
-			id:"/404"
+			id : "/404"
+		});
+	});
+	app.use(function(err, req, res, next) {
+		res.render('500.jade', {
+			status : err.status || 500,
+			error : err,
+			id : "/500"
 		});
 	});
 
