@@ -117,7 +117,7 @@ exports.remove = function(req, res) {
 	res.setHeader('Access-Control-Allow-Origin', '*');
 	var id = req.params.object;
 	dri.removeObject(id, function(arr) {
-		res.send(arr);
+		res.json(arr);
 	}, function(err) {
 		res.send(err);
 	});
