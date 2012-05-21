@@ -1,4 +1,45 @@
 
+0.0.3 / 2012-05-16 
+==================
+
+  * Updated tests to use new Chai functions
+  * Fixed pagination bug
+  * Made some changes for pagination
+  * Updated pagination for list function
+  * Pagination is not in headers, but in meta property in response data
+  * Fedora uses fedoraNamespace in API config.js
+  * Added .project to .gitignore
+  * Updated config template file
+  * Response sends amount of pages
+  * Added pagination
+  * Changed fedora namespace for testing
+  * multiple files now upload properly
+  * send back the filelocation if you upload multiple files now
+  * Fixed package.json
+  * update the fileLocation property name
+  * Fixed tests to new upload
+  * Object approve now stores the fedoraID in th mongo object, changes status to "approved"
+  * test fix
+  * approve function also updates mongo item when successful. Currently bugged
+  * bux fix on upload for standard form uploads
+  * api now works with jquery upload plugin and normal upload
+  * fix
+  * Merge branch 'master' of ssh://howest-server.tchpc.tcd.ie/howest/node/dri-api
+  * Added authors
+  * added functionality for multiple files
+  * Added new route to get mongo and fedora object for comparison
+  * Added binary to /upload route
+  * Added fedora routes, removed config page
+  * fix upload test with a node variable for directory basename of file
+  * Depends on superagent
+  * Depends on superagent
+  * Merge branch 'master' of ssh://howest-server.tchpc.tcd.ie/howest/node/dri-api
+  * Integrated binary upload, wrote test to prove it. Moved config to config.js
+  * bump version as previous tag did not function
+  * updated startup message
+  * Merge branch 'master' of ssh://howest-server.tchpc.tcd.ie/howest/node/dri-api
+  * Structured code so that it throws an error when no config.json file is available
+
 0.0.2 / 2012-04-27 
 ==================
 
