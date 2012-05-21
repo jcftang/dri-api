@@ -14,6 +14,7 @@ function showAPI(app) {
 	var devRoutes = require('./routes/dev');
 	var uploadRoutes = require('./routes/upload');
 	var fedoraRoutes = require('./routes/fedora');
+	var statsRoutes = require('./routes/stats');
 	// Creates mapping for the documentation page of the various versions
 	var devResource = app.resource('dev', devRoutes);
 
@@ -29,6 +30,10 @@ function showAPI(app) {
 
 	var uploadResource = app.resource('dev/upload', uploadRoutes);
 	var fedoraResource = app.resource('dev/fedora', fedoraRoutes);
+	
+	var statsResource = app.resource('dev/stats', statsRoutes);
+	statsResource.map('get', '/open', statsRoutes.open)
+	statsResource.map('get', '/approved', statsRoutes.approved)
 
 	// Sets index page route
 	app.get('/', routes.index);
