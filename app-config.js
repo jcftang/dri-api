@@ -15,7 +15,7 @@ exports.configure = function configure(app) {
 	app.configure(function() {
 		app.set('views', __dirname + '/views');
 		app.set('view options', {
-			layout : "_layouts/layout"
+			layout:"_layouts/layout"
 		});
 		app.set('view engine', 'jade');
 		app.use(express.bodyParser());
