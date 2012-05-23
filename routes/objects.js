@@ -3,7 +3,12 @@
  */
 
 var dri = require("dri");
-var config = require('../config');
+var config 
+try{
+	config = require('../config');
+}catch(err){
+	config = require('../config.js.tp');
+}
 
 // Returns the list of parent-less objects
 exports.index = function(req, res) {

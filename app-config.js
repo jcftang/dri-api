@@ -6,7 +6,12 @@
 var dri = require('dri')
 var express = require('express');
 var routes = require('./routes');
-var config = require('./config');
+var config 
+try{
+	config = require('./config');
+}catch(err){
+	config = require('./config.js.tp');
+}
 var fs = require('fs');
 exports.configure = function configure(app) {
 

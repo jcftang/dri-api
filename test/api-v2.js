@@ -238,6 +238,7 @@ describe('Tests for DRI APIv2', function() {
 				uri : socket + '/dev/objects/' + collectionId + '/approve'
 			}, function(err, resp, body) {
 				assert.isNull(err);
+				assert.include(body, "This is a updated collection title!");
 				done();
 			});
 		});

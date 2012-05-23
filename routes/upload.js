@@ -30,7 +30,7 @@ exports.create = function(req, res) {
 function uploadFile(res, req, file, count) {
 	res.setHeader('Access-Control-Allow-Origin', '*');
 	dri.uploadFile(file, function(result) {
-		console.log(count-1)
+		//console.log(count-1)
 		if(req.files.upload) {
 			res.send(result);
 		} else if(amountOfFiles == 1) {
