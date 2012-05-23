@@ -3,11 +3,15 @@
  */
 
 var dri = require("dri");
-var config = require('../config');
+var config 
+try{
+	config = require('../config');
+}catch(err){
+	config = require('../config.js.tp');
+}
 
 // Returns the list of parent-less objects
 exports.index = function(req, res) {
-
 	res.setHeader('Access-Control-Allow-Origin', '*');
 	// For pagination
 	var page = req.query.page
@@ -57,6 +61,7 @@ exports.index = function(req, res) {
 }
 // Returns the object given by the ID
 exports.show = function(req, res) {
+	//console.log(req)
 	var id = req.params.object;
 	dri.getObject(id, function(arr) {
 		switch (req.format) {
@@ -131,6 +136,7 @@ exports.update = function(req, res) {
 		res.json(numAffected);
 	}, function(err) {
 		res.send(err);
+	var id = req.params.object;
 	});
 }
 // Lists all the children of the given object ID
@@ -215,6 +221,7 @@ exports.approve = function(req, res) {
 
 exports.compare = function(req, res) {
 	var id = req.params.object;
+	console.log("comparing " + id)
 	dri.getObject(id, function(arr) {
 		var json = {};
 		json.mongo = arr
@@ -233,4 +240,9 @@ exports.compare = function(req, res) {
 	}, function(err) {
 		res.json(err);
 	});
+}
+exports.query = function(req, res) {
+	console.log("req")
+	console.log(req)
+
 }

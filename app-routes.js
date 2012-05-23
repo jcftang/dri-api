@@ -22,6 +22,7 @@ function showAPI(app) {
 	var objectsResource = app.resource('dev/objects', objectRoutes);
 
 	// Adds custom route mappings
+	objectsResource.map('get', '/query', objectRoutes.query)
 	objectsResource.map('get', '/:object/list', objectRoutes.list)
 	objectsResource.map('get', '/:object/delete', objectRoutes.remove)
 	objectsResource.map('get', '/:object/approve', objectRoutes.approve)

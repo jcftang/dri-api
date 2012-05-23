@@ -3,7 +3,11 @@
  */
 
 var dri = require("dri");
-var config = require('../config');
+try{
+	config = require('../config');
+}catch(err){
+	config = require('../config.js.tp');
+}
 
 exports.index = function(req, res) {
 	res.setHeader('Access-Control-Allow-Origin', '*');
