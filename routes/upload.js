@@ -17,6 +17,9 @@ exports.index = function(req, res) {
 
 var amountOfFiles = 1;
 exports.create = function(req, res) {
+	res.setHeader('Access-Control-Allow-Origin', '*');
+	res.setHeader('Access-Control-Allow-Headers','*')
+	res.setHeader('Access-Control-Allow-Methods', ['POST', 'GET', 'OPTIONS'])
 	console.log(req.files)
 	if(req.files.upload) {
 		uploadFile(res, req, req.files.upload, 1)
