@@ -32,16 +32,18 @@ exports.create = function(req, res) {
 }
 function uploadFile(res, req, file, count) {
 	res.setHeader('Access-Control-Allow-Origin', '*');
+	res.setHeader('Access-Control-Allow-Headers','*')
+	res.setHeader('Access-Control-Allow-Methods', ['POST', 'GET', 'OPTIONS'])
 	dri.uploadFile(file, function(result) {
 		//console.log(count-1)
 		if(req.files.upload) {
 			res.send(result);
 		} else if(amountOfFiles == 1) {
 			req.files.files[0].fileLocation = result;
-			res.redirect(req.body.redirect + "[" + JSON.stringify(req.files.files[0]) + "]")
+			res.send("[" + JSON.stringify(req.files.files[0]) + "]")
 		} else if(count == amountOfFiles && amountOfFiles > 1) {
 			req.files.files[0][count-1].fileLocation = result;
-			res.redirect(req.body.redirect + JSON.stringify(req.files.files[0]))
+			res.send(JSON.stringify(req.files.files[0]))
 		}else if(amountOfFiles > 1){
 			req.files.files[0][count-1].fileLocation = result;
 		}
