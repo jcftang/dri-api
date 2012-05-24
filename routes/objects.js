@@ -241,8 +241,3 @@ exports.compare = function(req, res) {
 		res.json(err);
 	});
 }
-exports.query = function(req, res) {
-	console.log("req")
-	console.log(req)
-
-}
