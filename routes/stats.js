@@ -23,7 +23,7 @@ exports.index = function(req, res) {
 exports.open = function(req, res) {
 	res.setHeader('Access-Control-Allow-Origin', '*');
 	console.log("OPEN")
-	dri.countObjects({status:"open"},function(amount) {		
+	dri.countObjects({status:"open"},function(amount) {
 		console.log(amount)
 		res.json(amount);
 	}, function(err) {
@@ -34,11 +34,15 @@ exports.open = function(req, res) {
 exports.approved = function(req, res) {
 	res.setHeader('Access-Control-Allow-Origin', '*');
 	console.log("approved")
-	dri.countObjects({status:"approved"},function(amount) {		
+	dri.countObjects({status:"approved"},function(amount) {
 		console.log(amount)
 		res.json(amount);
 	}, function(err) {
 		res.send(err);
 	});
+}
+exports.lastCreated = function(req, res) {
+}
+exports.lastEdited = function(req, res) {
 }
 
