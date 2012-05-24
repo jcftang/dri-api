@@ -30,8 +30,6 @@ function showAPI(app) {
 	objectsResource.map('post', '/:object/update', objectRoutes.update)
 
 	var uploadResource = app.resource('dev/upload', uploadRoutes);
-	uploadResource.map('options', '/', uploadRoutes.create)
-
 	var fedoraResource = app.resource('dev/fedora', fedoraRoutes);
 	var queryResource = app.resource('dev/query', queryRoutes);
 	
