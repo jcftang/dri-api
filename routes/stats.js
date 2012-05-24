@@ -42,7 +42,21 @@ exports.approved = function(req, res) {
 	});
 }
 exports.lastCreated = function(req, res) {
+	res.setHeader('Access-Control-Allow-Origin', '*');
+	dri.lastCreated(function(data) {
+		console.log(data)
+		res.json(data);
+	}, function(err) {
+		res.send(err);
+	});
 }
 exports.lastEdited = function(req, res) {
+		res.setHeader('Access-Control-Allow-Origin', '*');
+	dri.lastEdited(function(data) {
+		console.log(data)
+		res.json(data);
+	}, function(err) {
+		res.send(err);
+	});
 }
 

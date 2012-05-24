@@ -38,7 +38,8 @@ function showAPI(app) {
 	var statsResource = app.resource('dev/stats', statsRoutes);
 	statsResource.map('get', '/open', statsRoutes.open)
 	statsResource.map('get', '/approved', statsRoutes.approved)
-
+	statsResource.map('get', '/lastcreated', statsRoutes.lastCreated)
+	statsResource.map('get', '/lastedited', statsRoutes.lastEdited)
 	// Sets index page route
 	app.get('/', routes.index);
 
