@@ -15,6 +15,7 @@ function showAPI(app) {
 	var uploadRoutes = require('./routes/upload');
 	var fedoraRoutes = require('./routes/fedora');
 	var statsRoutes = require('./routes/stats');
+	var queryRoutes = require('./routes/query');
 	// Creates mapping for the documentation page of the various versions
 	var devResource = app.resource('dev', devRoutes);
 
@@ -22,7 +23,6 @@ function showAPI(app) {
 	var objectsResource = app.resource('dev/objects', objectRoutes);
 
 	// Adds custom route mappings
-	objectsResource.map('get', '/query', objectRoutes.query)
 	objectsResource.map('get', '/:object/list', objectRoutes.list)
 	objectsResource.map('get', '/:object/delete', objectRoutes.remove)
 	objectsResource.map('get', '/:object/approve', objectRoutes.approve)
@@ -31,6 +31,7 @@ function showAPI(app) {
 
 	var uploadResource = app.resource('dev/upload', uploadRoutes);
 	var fedoraResource = app.resource('dev/fedora', fedoraRoutes);
+	var queryResource = app.resource('dev/query', queryRoutes);
 	
 	var statsResource = app.resource('dev/stats', statsRoutes);
 	statsResource.map('get', '/open', statsRoutes.open)
@@ -40,20 +41,20 @@ function showAPI(app) {
 	app.get('/', routes.index);
 
 	// Add Error pages
-	app.use(function(req, res, next) {
-		res.render('404.jade', {
-			status : 404,
-			title : "404 - Error",
-			url : req.url,
-			id : "/404"
-		});
-	});
-	app.use(function(err, req, res, next) {
-		res.render('500.jade', {
-			status : err.status || 500,
-			error : err,
-			id : "/500"
-		});
-	});
+	// app.use(function(req, res, next) {
+		// res.render('404.jade', {
+			// status : 404,
+			// title : "404 - Error",
+			// url : req.url,
+			// id : "/404"
+		// });
+	// });
+	// app.use(function(err, req, res, next) {
+		// res.render('500.jade', {
+			// status : err.status || 500,
+			// error : err,
+			// id : "/500"
+		// });
+	// });
 
 }
