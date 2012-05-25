@@ -14,7 +14,6 @@ exports.index = function(req, res) {
 		res.writeHead(200, {
 			'content-type' : 'text/xml'
 		});
-		console.log("Got some fedora")
 		res.end(data);
 	}, function(err) {
 		res.writeHead(500, {
@@ -30,7 +29,6 @@ exports.show = function(req, res) {
 		res.writeHead(200, {
 			'content-type' : 'text/xml'
 		});
-		console.log("Got some fedora")
 		res.end(data);
 	}, function(err) {
 		console.log(err)

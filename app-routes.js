@@ -26,6 +26,7 @@ function showAPI(app) {
 	objectsResource.map('get', '/:object/list', objectRoutes.list)
 	objectsResource.map('get', '/:object/delete', objectRoutes.remove)
 	objectsResource.map('get', '/:object/approve', objectRoutes.approve)
+	objectsResource.map('get', '/:object/unapprove', objectRoutes.unapprove)
 	objectsResource.map('get', '/:object/compare', objectRoutes.compare)
 	objectsResource.map('post', '/:object/update', objectRoutes.update)
 

@@ -219,6 +219,40 @@ exports.approve = function(req, res) {
 	})
 }
 
+
+// Updates the object with the given ID and data
+exports.unapprove = function(req, res) {
+	res.setHeader('Access-Control-Allow-Origin', '*');
+	var data = req.body;
+	var id = req.params.object;
+	console.log("Unapprove")
+	console.log(id)
+	dri.getObject(id, function(data) {
+		dri.fedora.deleteObject(data.fedoraId,  function(date) {
+			//console.log("Item created: " + pid)
+			data.status = "open"
+			data.fedoraId = null
+			data = JSON.parse(JSON.stringify(data))
+			// Mongo ID must be removed or Mongo throws error when updating
+			var mongoId = data._id
+			delete data._id
+			dri.updateObject(mongoId, data, function(result) {
+				console.log(result)
+				res.json("{deletedOn:"+date+"}")
+			}, function(e) {
+				console.log(e)
+			})
+			//res.send(data);
+		}, function(err) {
+			console.log(err)
+			res.send(err)
+		})
+	}, function(err) {
+		onError(err)
+	})
+}
+
+
 exports.compare = function(req, res) {
 	var id = req.params.object;
 	console.log("comparing " + id)
