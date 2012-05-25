@@ -42,7 +42,37 @@ exports.approved = function(req, res) {
 	});
 }
 exports.lastCreated = function(req, res) {
+	res.setHeader('Access-Control-Allow-Origin', '*');
+	dri.lastCreated(function(data) {
+		res.json(data);
+	}, function(err) {
+		res.send(err);
+	});
 }
 exports.lastEdited = function(req, res) {
+		res.setHeader('Access-Control-Allow-Origin', '*');
+	dri.lastEdited(function(data) {
+		res.json(data);
+	}, function(err) {
+		res.send(err);
+	});
 }
+
+exports.lastCreatedByType = function(req, res) {
+	res.setHeader('Access-Control-Allow-Origin', '*');
+	dri.lastCreatedByType(req.params.type,function(data) {
+		res.json(data);
+	}, function(err) {
+		res.send(err);
+	});
+}
+exports.lastEditedByType = function(req, res) {
+		res.setHeader('Access-Control-Allow-Origin', '*');
+	dri.lastEditedByType(req.params.type,function(data) {
+		res.json(data);
+	}, function(err) {
+		res.send(err);
+	});
+}
+
 
