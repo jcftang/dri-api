@@ -40,6 +40,8 @@ function showAPI(app) {
 	statsResource.map('get', '/approved', statsRoutes.approved)
 	statsResource.map('get', '/lastcreated', statsRoutes.lastCreated)
 	statsResource.map('get', '/lastedited', statsRoutes.lastEdited)
+	statsResource.map('get', '/lastcreated/:type', statsRoutes.lastCreatedByType)
+	statsResource.map('get', '/lastedited/:type', statsRoutes.lastEditedByType)
 	// Sets index page route
 	app.get('/', routes.index);
 
