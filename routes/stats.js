@@ -3,18 +3,19 @@
  */
 
 var dri = require("dri");
-try{
+var winston = require("winston");
+try {
 	config = require('../config');
-}catch(err){
+} catch(err) {
 	config = require('../config.js.tp');
 }
 
 exports.index = function(req, res) {
 	res.setHeader('Access-Control-Allow-Origin', '*');
-	dri.countObjects({},function(amount) {		
-		console.log(amount)
+	dri.countObjects({}, function(amount) {
 		res.json(amount);
 	}, function(err) {
+		winston.log("error", err)
 		res.send(err);
 	});
 
@@ -22,22 +23,24 @@ exports.index = function(req, res) {
 
 exports.open = function(req, res) {
 	res.setHeader('Access-Control-Allow-Origin', '*');
-	console.log("OPEN")
-	dri.countObjects({status:"open"},function(amount) {
-		console.log(amount)
+	dri.countObjects({
+		status : "open"
+	}, function(amount) {
 		res.json(amount);
 	}, function(err) {
+		winston.log("error", err)
 		res.send(err);
 	});
 }
 
 exports.approved = function(req, res) {
 	res.setHeader('Access-Control-Allow-Origin', '*');
-	console.log("approved")
-	dri.countObjects({status:"approved"},function(amount) {
-		console.log(amount)
+	dri.countObjects({
+		status : "approved"
+	}, function(amount) {
 		res.json(amount);
 	}, function(err) {
+		winston.log("error", err)
 		res.send(err);
 	});
 }
@@ -46,33 +49,36 @@ exports.lastCreated = function(req, res) {
 	dri.lastCreated(function(data) {
 		res.json(data);
 	}, function(err) {
+		winston.log("error", err)
 		res.send(err);
 	});
 }
 exports.lastEdited = function(req, res) {
-		res.setHeader('Access-Control-Allow-Origin', '*');
+	res.setHeader('Access-Control-Allow-Origin', '*');
 	dri.lastEdited(function(data) {
 		res.json(data);
 	}, function(err) {
+		winston.log("error", err)
 		res.send(err);
 	});
 }
 
 exports.lastCreatedByType = function(req, res) {
 	res.setHeader('Access-Control-Allow-Origin', '*');
-	dri.lastCreatedByType(req.params.type,function(data) {
+	dri.lastCreatedByType(req.params.type, function(data) {
 		res.json(data);
 	}, function(err) {
+		winston.log("error", err)
 		res.send(err);
 	});
 }
 exports.lastEditedByType = function(req, res) {
-		res.setHeader('Access-Control-Allow-Origin', '*');
-	dri.lastEditedByType(req.params.type,function(data) {
+	res.setHeader('Access-Control-Allow-Origin', '*');
+	dri.lastEditedByType(req.params.type, function(data) {
 		res.json(data);
 	}, function(err) {
+		winston.log("error", err)
 		res.send(err);
 	});
 }
-
 

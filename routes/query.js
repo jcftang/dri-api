@@ -4,7 +4,7 @@
  * @author: Quirijn Groot Bleumink
  */
 var dri = require('dri')
-
+var winston = require("winston");
 // Returns the list of parent-less objects
 exports.index = function(req, res) {
 	//console.log(req.query)
@@ -14,6 +14,7 @@ exports.index = function(req, res) {
 		dri.query(field, value, function(data) {
 			res.send(data)
 		}, function(err) {
+			winston.log("error",err)
 			res.writeHead(500)
 			res.end(err)
 		});
