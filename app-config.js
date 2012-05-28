@@ -16,6 +16,9 @@ try{
 var fs = require('fs');
 exports.configure = function configure(app) {
 
+	// Configure winston logging
+	winston.add(winston.transports.File, { filename: 'api.log' , timestamp:true});
+
 	dri.configure(config)
 	// Configuration
 	app.configure(function() {
@@ -42,6 +45,4 @@ exports.configure = function configure(app) {
 		app.use(express.errorHandler());
 	});
 	
-	// Configure winston logging
-	winston.add(winston.transports.File, { filename: 'tehL0gzf1l3.log' , timestamp:true});
 }
