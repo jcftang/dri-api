@@ -6,6 +6,7 @@
 var express = require('express');
 var appRoutes = require('./app-routes');
 var appConfig = require('./app-config');
+var winston = require('winston');
 var app = module.exports = express.createServer();
 
 //Load configuration file
@@ -17,6 +18,6 @@ appRoutes.createRoutes(app);
 
 // Start the server on port 4000
 app.listen(4000, function() {
-	console.log("DRI API running on port %d in %s mode", app.address().port, app.settings.env);
+	winston.log("info","DRI API running on port "+app.address().port+" in "+app.settings.env+" mode");
 });
 
