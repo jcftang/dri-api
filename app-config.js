@@ -6,6 +6,7 @@
 var dri = require('dri')
 var express = require('express');
 var routes = require('./routes');
+var winston = require("winston");
 var config 
 try{
 	config = require('./config');
@@ -40,4 +41,7 @@ exports.configure = function configure(app) {
 	app.configure('production', function() {
 		app.use(express.errorHandler());
 	});
+	
+	// Configure winston logging
+	winston.add(winston.transports.File, { filename: 'tehL0gzf1l3.log' , timestamp:true});
 }

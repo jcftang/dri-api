@@ -3,10 +3,11 @@
  */
 
 var dri = require("dri");
-var config 
-try{
+var winston = require("winston");
+var config
+try {
 	config = require('../config');
-}catch(err){
+} catch(err) {
 	config = require('../config.js.tp');
 }
 
@@ -54,14 +55,14 @@ exports.index = function(req, res) {
 				res.json(responseData);
 		}
 	}, function(err) {
-		console.log(arr)
+		winston.log("error", err)
 		res.json(err);
 	});
 
 }
 // Returns the object given by the ID
 exports.show = function(req, res) {
-	//console.log(req)
+	//winston.log("info",req)
 	var id = req.params.object;
 	dri.getObject(id, function(arr) {
 		switch (req.format) {
@@ -89,28 +90,29 @@ exports.show = function(req, res) {
 // Creates an object with the given data
 exports.create = function(req, res) {
 	res.setHeader('Access-Control-Allow-Origin', '*');
-	//console.log(req)
+	//winston.log("info",req)
 	var res = res
 	var data = req.body;
 	var files = req.files
-	//console.log(files)
+	//winston.log("info",files)
 	dri.createObject(data, function(arr) {
 		var id = arr
 		if(files) {
-			//console.log("HAS FILES!")
+			//winston.log("info","HAS FILES!")
 			dri.uploadFile(files, function(result) {
 				res.send(id);
 			}, function(err) {
+				winston.log("error", err)
 				res.writeHead(500, {
 					"Content-Type" : "text/plain"
 				});
 				res.end(err);
 			})
 		} else {
-			//console.log("HAS NOOOO FILES!")
 			res.send(arr);
 		}
 	}, function(err) {
+		winston.log("error", err)
 		res.writeHead(500, {
 			"Content-Type" : "text/plain"
 		});
@@ -124,6 +126,7 @@ exports.remove = function(req, res) {
 	dri.removeObject(id, function(arr) {
 		res.json(arr);
 	}, function(err) {
+		winston.log("error",err)
 		res.send(err);
 	});
 }
@@ -135,8 +138,9 @@ exports.update = function(req, res) {
 	dri.updateObject(id, data, function(numAffected) {
 		res.json(numAffected);
 	}, function(err) {
+		winston.log("error",err)
 		res.send(err);
-	var id = req.params.object;
+		var id = req.params.object;
 	});
 }
 // Lists all the children of the given object ID
@@ -184,7 +188,7 @@ exports.list = function(req, res) {
 				res.json(responseData);
 		}
 	}, function(err) {
-		console.log(responseData)
+		winston.log("error",err)
 		res.json(err);
 	});
 
@@ -196,7 +200,7 @@ exports.approve = function(req, res) {
 	var id = req.params.object;
 	dri.getObject(id, function(data) {
 		dri.approveItem(data, config.fedoraNamespace, function(pid) {
-			//console.log("Item created: " + pid)
+			//winston.log("info","Item created: " + pid)
 			data.status = "approved"
 			data.fedoraId = pid
 			data = JSON.parse(JSON.stringify(data))
@@ -204,32 +208,32 @@ exports.approve = function(req, res) {
 			var mongoId = data._id
 			delete data._id
 			dri.updateObject(mongoId, data, function(result) {
-				//console.log(result)
+				winston.log("info", "result")
 				res.send(pid)
 			}, function(e) {
-				console.log(e)
+				winston.log("info", "e")
+				winston.log("info", e)
 			})
 			res.send(data);
 		}, function(err) {
-			console.log(err)
+		winston.log("error",err)
 			res.send(err)
 		})
 	}, function(err) {
+		winston.log("error",err)
 		onError(err)
 	})
 }
-
-
 // Updates the object with the given ID and data
 exports.unapprove = function(req, res) {
 	res.setHeader('Access-Control-Allow-Origin', '*');
 	var data = req.body;
 	var id = req.params.object;
-	console.log("Unapprove")
-	console.log(id)
+	winston.log("info", "Unapprove")
+	winston.log("info", id)
 	dri.getObject(id, function(data) {
-		dri.fedora.deleteObject(data.fedoraId,  function(date) {
-			//console.log("Item created: " + pid)
+		dri.fedora.deleteObject(data.fedoraId, function(date) {
+			//winston.log("info","Item created: " + pid)
 			data.status = "open"
 			data.fedoraId = null
 			data = JSON.parse(JSON.stringify(data))
@@ -237,25 +241,26 @@ exports.unapprove = function(req, res) {
 			var mongoId = data._id
 			delete data._id
 			dri.updateObject(mongoId, data, function(result) {
-				console.log(result)
-				res.json("{deletedOn:"+date+"}")
-			}, function(e) {
-				console.log(e)
+				winston.log("info", "result")
+				winston.log("info", result)
+				res.json("{deletedOn:" + date + "}")
+			}, function(err) {
+				winston.log("error",err)
 			})
 			//res.send(data);
 		}, function(err) {
-			console.log(err)
+		winston.log("error",err)
 			res.send(err)
 		})
 	}, function(err) {
+		winston.log("error",err)
 		onError(err)
 	})
 }
 
-
 exports.compare = function(req, res) {
 	var id = req.params.object;
-	console.log("comparing " + id)
+	winston.log("info", "comparing " + id)
 	dri.getObject(id, function(arr) {
 		var json = {};
 		json.mongo = arr
@@ -264,7 +269,7 @@ exports.compare = function(req, res) {
 				json.fedora = data
 				res.json(json)
 			}, function(err) {
-				console.log(err)
+				winston.log("error",err)
 				res.end(err);
 			})
 		} else {
@@ -272,6 +277,7 @@ exports.compare = function(req, res) {
 			res.json(json)
 		}
 	}, function(err) {
+		winston.log("error",err)
 		res.json(err);
 	});
 }
