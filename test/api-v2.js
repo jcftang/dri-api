@@ -243,6 +243,66 @@ describe('Tests for DRI APIv2', function() {
 			});
 		});
 	});
+	describe('GET /dev/stats', function() {
+		it("should respond with the total amount of objects in mongodb", function(done) {
+			request({
+				method : 'GET',
+				uri : socket + '/dev/stats'
+			}, function(err, resp, body) {
+				assert.isNull(err);
+				assert.isString(body);
+				done();
+			});
+		});
+	});
+	describe('GET /dev/stats/approved', function() {
+		it("should respond with the total amount of objects in mongodb that have been pushed to fedora", function(done) {
+			request({
+				method : 'GET',
+				uri : socket + '/dev/stats/approved'
+			}, function(err, resp, body) {
+				assert.isNull(err);
+				assert.isString(body);
+				done();
+			});
+		});
+	});
+	describe('GET /dev/stats/open', function() {
+		it("should respond with the total amount of objects in mongodb that are open", function(done) {
+			request({
+				method : 'GET',
+				uri : socket + '/dev/objects/stats/open'
+			}, function(err, resp, body) {
+				assert.isNull(err);
+				assert.isString(body);
+				done();
+			});
+		});
+	});
+	describe('GET /dev/stats/lastedited', function() {
+		it("should respond with a list of the last edited objects", function(done) {
+			request({
+				method : 'GET',
+				uri : socket + '/dev/stats/lastedited'
+			}, function(err, resp, body) {
+				assert.isNull(err);
+				assert.isString(body);
+				done();
+			});
+		});
+	});
+	describe('GET /dev/stats/lastcreated', function() {
+		it("should respond with a list of the last created objects", function(done) {
+			request({
+				method : 'GET',
+				uri : socket + '/dev/stats/lastcreated'
+			}, function(err, resp, body) {
+				assert.isNull(err);
+				assert.isString(body);
+				done();
+			});
+		});
+	});
 	describe('GET /dev/objects/:id/delete', function() {
 		it("should respond with the id of the deleted object", function(done) {
 			request({
