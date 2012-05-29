@@ -17,7 +17,7 @@ var fs = require('fs');
 exports.configure = function configure(app) {
 
 	// Configure winston logging
-	winston.add(winston.transports.File, { filename: 'api.log' , timestamp:true, colorize:true});
+	winston.add(winston.transports.File, { filename: 'api.log' , timestamp:true, colorize:true, json:false});
 
 	dri.configure(config)
 	// Configuration
