@@ -23,3 +23,9 @@ To start the application, run "app.js" in node.
 
 The application should be running at http://localhost:4000
 The port number can be changed in the app.js file.
+
+## Known issues
+
+* You can only approve "Items"
+* Deleting an object is not done recursively
+* Operations with MongoDB and Fedora Commons don't use transactions
