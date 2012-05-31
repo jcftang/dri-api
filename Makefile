@@ -21,16 +21,16 @@ test:
 	--timeout 50000 \
 	test/*.js
 
-coverage: lib-cov
-	@NODE_PATH=./lib-cov NODE_ENV=test ./node_modules/.bin/mocha \
+coverage: routes-cov
+	@NODE_PATH=./routes-cov NODE_ENV=test ./node_modules/.bin/mocha \
 	--reporter html-cov \
 	--timeout 50000 \
 	test/*.js > docs/coverage.html
 
-lib-cov:
-	@./node_modules/.bin/node-jscoverage lib lib-cov
+routes-cov:
+	@./node_modules/.bin/node-jscoverage lib routes-cov
 
 clean:
-	-rm -rf lib-cov
+	-rm -rf routes-cov
 
 .PHONY: test test-doc coverage
