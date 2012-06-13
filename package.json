@@ -1,7 +1,7 @@
 {
     "name": "dri-api"
   , "version": "0.0.4"
-  , "private": true
+  , "private": false
   , "dependencies": {
       "express": "2.5.8"
     , "jade": ">= 0.0.1"
