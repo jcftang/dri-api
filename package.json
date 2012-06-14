@@ -7,7 +7,7 @@
     , "jade": ">= 0.0.1"
     , "express-resource": ">= 0.2.4"
     , "winston": ">= 0.5.11"
-    , "dri": "https://github.com/jcftang/node-dri/tarball/master"
+    , "dri": ">=0.0.6"
   },
 "scripts": {
     "test": "make test"
