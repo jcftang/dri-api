@@ -1,3 +1,4 @@
+[![build status](https://secure.travis-ci.org/jcftang/dri-api.png)](http://travis-ci.org/jcftang/dri-api)
 # DRI API
 
 ## Requirements
